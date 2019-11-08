@@ -5,38 +5,44 @@ module.exports = function(sequelize, DataTypes) {
   //     message: "Must have length greater than 1"
   //   }
   // }
-  var site = sequelize.define("site", {
+  var maintenance_event = sequelize.define("maintenance_event", {
     // Giving the Author model a name of type STRING
-    site_id: {
+    event_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     },
-    site_name: {
+    first_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    address1: {
+    last_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    address2: {
+    link_to_data_folder: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true // checks for email format (foo@bar.com)
+      }
+    },
+    status_of_maintenance: {
       type: DataTypes.STRING
     },
-    address3: {
+    status_description: {
       type: DataTypes.STRING
     },
-    suburb: {
-      type: DataTypes.STRING
+    datetime_started: {
+      type: DataTypes.DATE
     },
-    postcode: {
-      type: DataTypes.INTEGER
+    datetime_completed: {
+      type: DataTypes.DATE
     },
-    country: {
-      type: DataTypes.STRING
+    datetime_scheduled: {
+      type: DataTypes.DATE
     }
   });
 
-  return site;
+  return maintenance_event;
 };

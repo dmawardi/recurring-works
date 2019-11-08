@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
   var equipment = sequelize.define("equipment", {
     // Giving the Author model a name of type STRING
     equipment_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
@@ -18,8 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     equipment_description: {
-      type: DataTypes.STRING,
-      defaultValue: 0
+      type: DataTypes.STRING
     },
     custom_serial_name_1: {
       type: DataTypes.STRING,

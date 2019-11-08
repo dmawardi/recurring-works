@@ -5,23 +5,26 @@ module.exports = function(sequelize, DataTypes) {
   //     message: "Must have length greater than 1"
   //   }
   // }
-  var equipment_category = sequelize.define("equipment_category", {
+  var event_notes = sequelize.define("event_notes", {
     // Giving the Author model a name of type STRING
-    category_id: {
+    note_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     },
-    category_name: {
+    note_title: {
+      type: DataTypes.STRING
+    },
+    note_body: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    description: {
+    status_updated_to: {
       type: DataTypes.STRING,
-      allowNull: false
+      defaultValue: "No Status Update"
     }
   });
 
-  return equipment_category;
+  return event_notes;
 };
