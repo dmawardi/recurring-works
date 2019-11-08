@@ -13,14 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     },
-    first_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    last_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+
     link_to_data_folder: {
       type: DataTypes.STRING,
       validate: {
@@ -43,6 +36,22 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     }
   });
+
+  maintenance_event.associate = function(models) {
+    // Associating Author with Posts
+    // When an Author is deleted, also delete any associated Posts
+    // maintenance_event.hasMany(models.event_note, {
+    //   onDelete: "cascade"
+    // });
+
+    maintenance_event.belongsTo(models.equipment, {
+      foreignKey: "equipment_id"
+    });
+
+    maintenance_event.belongsTo(models.vendor, {
+      foreignKey: "vendor_id"
+    });
+  };
 
   return maintenance_event;
 };

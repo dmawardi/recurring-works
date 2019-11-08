@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, "client")));
 
 // Test Connection
 db.sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     console.log("Connection has been established successfully.");
     app.listen(PORT, function() {

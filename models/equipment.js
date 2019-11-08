@@ -46,8 +46,28 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isUrl: true // checks for url format
       }
+    },
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: 1
     }
   });
+
+  equipment.associate = function(models) {
+    // Associating Author with Posts
+    // When an Author is deleted, also delete any associated Posts
+    equipment.belongsTo(models.site, {
+      foreignKey: "site_id"
+    });
+
+    equipment.belongsTo(models.equipment_category, {
+      foreignKey: "category_id"
+    });
+
+    // equipment.hasMany(models.maintenance_event, {
+    //   onDelete: "cascade"
+    // });
+  };
 
   return equipment;
 };
