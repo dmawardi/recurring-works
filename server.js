@@ -6,6 +6,7 @@ var express = require("express");
 var db = require("./models");
 
 var path = require("path");
+var routes = require("./routes");
 
 // Init express server and port
 var app = express();
@@ -20,7 +21,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "client")));
 
 // Use imported routes for server
-// app.use(routes);
+app.use(routes);
 
 // Test Connection
 db.sequelize
