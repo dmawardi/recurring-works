@@ -47,6 +47,10 @@ module.exports = function(sequelize, DataTypes) {
         isUrl: true // checks for url format
       }
     },
+    yearlyFrequency: {
+      type: DataTypes.FLOAT,
+      defaultValue: 1
+    },
     enabled: {
       type: DataTypes.BOOLEAN,
       defaultValue: 1
@@ -61,7 +65,14 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     equipment.belongsTo(models.equipment_category, {
+      foreignKey: {
+        allowNull: false
+      },
       foreignKey: "category_id"
+      // references: {
+      //   model: "equipment_category",
+      //   key: "category_id"
+      // }
     });
 
     // equipment.hasMany(models.maintenance_event, {

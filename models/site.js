@@ -51,10 +51,9 @@ module.exports = function(sequelize, DataTypes) {
     // site.hasMany(models.equipment, {
     //   onDelete: "cascade"
     // });
-
-    site.belongsTo(models.equipment_category, {
-      foreignKey: "category_id"
-    });
+    // site.belongsTo(models.equipment_category, {
+    //   foreignKey: "category_id"
+    // });
   };
 
   return site;

@@ -23,5 +23,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  equipment_category.associate = function(models) {
+    equipment_category.hasMany(models.equipment, {
+      foreignKey: "category_id"
+    });
+  };
+
   return equipment_category;
 };
