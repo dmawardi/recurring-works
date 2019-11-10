@@ -4,6 +4,7 @@ const Site = require("../../controller/site");
 const Equipment = require("../../controller/equipment");
 const Event = require("../../controller/event");
 const Note = require("../../controller/note");
+const Vendor = require("../../controller/vendor");
 
 // Below routes match with "/api/sites/*"
 // Find all
@@ -326,12 +327,86 @@ router.delete("/notes/:idToDelete", (req, res) => {
     });
 });
 
+// Vendor Routes
 // Below routes match with "/api/vendors/*"
 router.get("/vendors", function(req, res) {
   console.log("Hitting Vendors");
 
   console.log("req:", req.body);
-  res.send("Vendors are here");
+  Vendor.findAll()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// find by id
+router.get("/vendors/:idToFind", (req, res) => {
+  console.log("Hitting vendors");
+  const idToFind = req.params.idToFind;
+  console.log("req to find:", idToFind);
+  Vendor.findByID(idToFind)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// Create vendors
+router.post("/vendors", (req, res) => {
+  console.log("Hitting Create vendor");
+  console.log("req:", req.body);
+  //   res.json(req.body);
+  Vendor.create(req.body)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+// Update vendors
+router.put("/vendors/:idToUpdate", (req, res) => {
+  console.log("Hitting update vendor");
+  const idToUpdate = req.params.idToUpdate;
+  console.log("ID to update:", idToUpdate);
+
+  console.log("req:", req.body);
+  Vendor.update(idToUpdate, req.body)
+    .then(data => {
+      console.log("Successfully updated record", data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      //   res.send("Failed to Create");
+      res.sendStatus(500);
+    });
+});
+
+// Delete vendors
+router.delete("/vendors/:idToDelete", (req, res) => {
+  console.log("Hitting delete vendor");
+  const idToDelete = req.params.idToDelete;
+  console.log("ID to delete:", idToDelete);
+
+  Vendor.delete(idToDelete)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;
