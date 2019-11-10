@@ -2,6 +2,7 @@ const router = require("express").Router();
 // TODO Import controller
 const Site = require("../../controller/site");
 const Equipment = require("../../controller/equipment");
+const Event = require("../../controller/event");
 
 // Below routes match with "/api/sites/*"
 // Find all
@@ -165,7 +166,81 @@ router.get("/events", function(req, res) {
   console.log("Hitting Events");
 
   console.log("req:", req.body);
-  res.send("Events are here");
+  //   res.send("Events are here");
+  Event.findAll()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// find by id
+router.get("/events/:idToFind", (req, res) => {
+  console.log("Hitting Sites");
+  const idToFind = req.params.idToFind;
+  console.log("req to find:", idToFind);
+  Event.findByID(idToFind)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// Create event
+router.post("/events", (req, res) => {
+  console.log("Hitting Create event");
+  console.log("req:", req.body);
+  //   res.json(req.body);
+  Event.create(req.body)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+// Update equipment
+router.put("/events/:idToUpdate", (req, res) => {
+  console.log("Hitting update equipment");
+  const idToUpdate = req.params.idToUpdate;
+  console.log("ID to update:", idToUpdate);
+
+  console.log("req:", req.body);
+  Event.update(idToUpdate, req.body)
+    .then(data => {
+      console.log("Successfully updated record", data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      //   res.send("Failed to Create");
+      res.sendStatus(500);
+    });
+});
+
+// Delete equipment
+router.delete("/events/:idToDelete", (req, res) => {
+  console.log("Hitting delete equipment");
+  const idToDelete = req.params.idToDelete;
+  console.log("ID to delete:", idToDelete);
+
+  Event.delete(idToDelete)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      res.sendStatus(500);
+    });
 });
 
 // Below routes match with "/api/notes/*"
