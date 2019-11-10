@@ -23,9 +23,10 @@ app.use(express.static(path.join(__dirname, "client")));
 // Use imported routes for server
 app.use(routes);
 
+// { force: true }
 // Test Connection
 db.sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("Connection has been established successfully.");
     app.listen(PORT, function() {
