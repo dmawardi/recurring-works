@@ -96,9 +96,11 @@ router.get("/equipment", function(req, res) {
 });
 
 // find by id
-router.get("/equipment", function(req, res) {
-  console.log("Hitting Equipment");
-  Equipment.findAll()
+router.get("/equipment/:idToFind", (req, res) => {
+  console.log("Hitting Sites");
+  const idToFind = req.params.idToFind;
+  console.log("req to find:", idToFind);
+  Equipment.findByID(idToFind)
     .then(data => {
       res.json(data);
     })

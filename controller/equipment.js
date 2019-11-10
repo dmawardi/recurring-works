@@ -13,9 +13,9 @@ const Equipment = {
   },
   // Find all sorted by date
   findByID: idToFind => {
-    return db.equipment.find({
+    return db.equipment.findAll({
       where: {
-        site_id: idToFind
+        equipment_id: idToFind
       }
     });
     // .sort({ date: -1 });
@@ -23,14 +23,14 @@ const Equipment = {
   delete: idToDelete => {
     return db.equipment.destroy({
       where: {
-        site_id: idToDelete
+        equipment_id: idToDelete
       }
     });
   },
   update: (idToUpdate, data) => {
     return db.equipment.update(data, {
       where: {
-        site_id: idToUpdate
+        equipment_id: idToUpdate
       }
     });
   }
