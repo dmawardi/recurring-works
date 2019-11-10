@@ -53,18 +53,19 @@ router.put("/sites/:idToUpdate", (req, res) => {
 
 // Create site
 router.delete("/sites/:idToDelete", (req, res) => {
-  console.log("Hitting Create Sites");
-  console.log("ID to delete:", req.params.idToDelete);
+  console.log("Hitting delete Sites");
+  const idToDelete = req.params.idToDelete;
+  console.log("ID to delete:", idToDelete);
 
-  //   res.json(req.body);
-  // Site.delete(req.body)
-  //   .then(data => {
-  //     res.sendStatus(200);
-  //   })
-  //   .catch(err => {
-  //     // res.send("Failed to Create");
-  //     res.sendStatus(500);
-  //   });
+  Site.delete(idToDelete)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      res.sendStatus(500);
+    });
 });
 
 // Below routes match with "/api/events/*"
