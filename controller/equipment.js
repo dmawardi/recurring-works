@@ -1,19 +1,19 @@
 const db = require("../models");
 
-const Site = {
+const Equipment = {
   // Create a new record using
   create: data => {
-    return db.site.create(data);
+    return db.equipment.create(data);
   },
   // Find all sorted by date
   findAll: () => {
     console.log("Finding all");
-    return db.site.findAll();
+    return db.equipment.findAll();
     // .sort({ date: -1 });
   },
   // Find all sorted by date
   findByID: idToFind => {
-    return db.site.findAll({
+    return db.equipment.find({
       where: {
         site_id: idToFind
       }
@@ -21,14 +21,14 @@ const Site = {
     // .sort({ date: -1 });
   },
   delete: idToDelete => {
-    return db.site.destroy({
+    return db.equipment.destroy({
       where: {
         site_id: idToDelete
       }
     });
   },
   update: (idToUpdate, data) => {
-    return db.site.update(data, {
+    return db.equipment.update(data, {
       where: {
         site_id: idToUpdate
       }
@@ -36,4 +36,4 @@ const Site = {
   }
 };
 
-module.exports = Site;
+module.exports = Equipment;
