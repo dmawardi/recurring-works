@@ -3,6 +3,7 @@ const router = require("express").Router();
 const Site = require("../../controller/site");
 const Equipment = require("../../controller/equipment");
 const Event = require("../../controller/event");
+const Note = require("../../controller/note");
 
 // Below routes match with "/api/sites/*"
 // Find all
@@ -243,12 +244,86 @@ router.delete("/events/:idToDelete", (req, res) => {
     });
 });
 
+// Event_notes routes
 // Below routes match with "/api/notes/*"
 router.get("/notes", function(req, res) {
   console.log("Hitting Notes");
 
   console.log("req:", req.body);
-  res.send("Notes are here");
+  Note.findAll()
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// find by id
+router.get("/notes/:idToFind", (req, res) => {
+  console.log("Hitting notes");
+  const idToFind = req.params.idToFind;
+  console.log("req to find:", idToFind);
+  Note.findByID(idToFind)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// Create notes
+router.post("/notes", (req, res) => {
+  console.log("Hitting Create note");
+  console.log("req:", req.body);
+  //   res.json(req.body);
+  Note.create(req.body)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+// Update notes
+router.put("/notes/:idToUpdate", (req, res) => {
+  console.log("Hitting update note");
+  const idToUpdate = req.params.idToUpdate;
+  console.log("ID to update:", idToUpdate);
+
+  console.log("req:", req.body);
+  Note.update(idToUpdate, req.body)
+    .then(data => {
+      console.log("Successfully updated record", data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      //   res.send("Failed to Create");
+      res.sendStatus(500);
+    });
+});
+
+// Delete notes
+router.delete("/notes/:idToDelete", (req, res) => {
+  console.log("Hitting delete equipment");
+  const idToDelete = req.params.idToDelete;
+  console.log("ID to delete:", idToDelete);
+
+  Note.delete(idToDelete)
+    .then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      // res.send("Failed to Create");
+      res.sendStatus(500);
+    });
 });
 
 // Below routes match with "/api/vendors/*"
