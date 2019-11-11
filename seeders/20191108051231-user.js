@@ -7,6 +7,8 @@ module.exports = {
         first_name: "John",
         last_name: "Dorian",
         email: "john@doe.com",
+        username: "johndorian",
+        password: "samplepass",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -14,6 +16,8 @@ module.exports = {
         first_name: "Stifler",
         last_name: "Zoro",
         email: "Zoro@who.com",
+        username: "blackmask",
+        password: "samplepass",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -21,6 +25,8 @@ module.exports = {
         first_name: "Kramer",
         last_name: "Gambino",
         email: "Gambino@doe.com",
+        username: "GambinoBambino",
+        password: "samplepass",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       }

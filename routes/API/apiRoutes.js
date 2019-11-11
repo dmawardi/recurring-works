@@ -5,6 +5,58 @@ const Equipment = require("../../controller/equipment");
 const Event = require("../../controller/event");
 const Note = require("../../controller/note");
 const Vendor = require("../../controller/vendor");
+const passport = require("passport");
+const bcrypt = require("bcrypt");
+const User = require("../../controller/user");
+
+// Register POST route
+router.post("/register", async function(req, res) {
+  console.log("Registering new user: ", req.body);
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  User.create({
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
+    email: req.body.email,
+    username: req.body.userName,
+    password: hashedPassword
+  })
+    .then(data => {
+      console.log("server response: ", data);
+      console.log("is new: ", data.isNewRecord);
+
+      // Send user to login screen to login
+      res.redirect("/login");
+    })
+    .catch(err => {
+      const message = err.errors[0].message;
+      console.error("Failed to create new account: Error msg: " + message);
+      res.redirect("/register");
+    });
+});
+
+// Login POST route
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    // Redirect if success or fail
+    successRedirect: "/",
+    failureRedirect: "/login",
+    // Use express flash to display error to user
+    failureFlash: true
+  })
+);
+
+router.get("/logout", (req, res) => {
+  console.log("User authenticated? ", req.isAuthenticated());
+  req.logOut();
+  console.log("User authenticated? ", req.isAuthenticated());
+
+  // console.log("Req method: " + req.method);
+  // req.method = "GET";
+  // console.log("Req method: " + req.method);
+
+  res.redirect("/login");
+});
 
 // Below routes match with "/api/sites/*"
 // Find all

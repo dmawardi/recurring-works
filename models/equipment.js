@@ -51,6 +51,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.FLOAT,
       defaultValue: 1
     },
+    lastMaintenanceDate: {
+      type: DataTypes.DATE
+    },
     enabled: {
       type: DataTypes.BOOLEAN,
       defaultValue: 1

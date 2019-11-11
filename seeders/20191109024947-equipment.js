@@ -18,6 +18,7 @@ module.exports = {
         enabled: true,
         site_id: 1,
         category_id: 1,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -36,6 +37,7 @@ module.exports = {
         enabled: true,
         site_id: 1,
         category_id: 1,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -54,6 +56,7 @@ module.exports = {
         enabled: true,
         site_id: 1,
         category_id: 1,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -72,6 +75,7 @@ module.exports = {
         enabled: true,
         site_id: 1,
         category_id: 2,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -90,6 +94,7 @@ module.exports = {
         enabled: true,
         site_id: 1,
         category_id: 2,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -108,6 +113,7 @@ module.exports = {
         enabled: true,
         site_id: 1,
         category_id: 2,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -124,6 +130,7 @@ module.exports = {
         link_to_warranty:
           "https://github.com/dmawardi/recurring-works/projects/1",
         enabled: true,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
         site_id: 1,
         category_id: 2,
         createdAt: "2019-11-07 00:00:00",

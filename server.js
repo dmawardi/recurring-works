@@ -1,6 +1,31 @@
 // Require dotenv for env variables
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 var express = require("express");
+const passport = require("passport");
+// Encryption package
+const bcrypt = require("bcrypt");
+const flash = require("express-flash");
+const session = require("express-session");
+const methodOverride = require("method-override");
+
+const initializePassport = require("./controller/passport-config");
+initializePassport(passport);
+
+// Passport JS middleware
+// app.use(require("serve-static")(__dirname + "/../../public"));
+// app.use(require("cookie-parser")());
+// app.use(require("body-parser").urlencoded({ extended: true }));
+// app.use(
+//   require("express-session")({
+//     secret: "keyboard cat",
+//     resave: true,
+//     saveUninitialized: true
+//   })
+// );
+// app.use(passport.session());
 
 // Import db
 var db = require("./models");
@@ -16,6 +41,18 @@ var PORT = process.env.PORT || 8000;
 // Parse application body and use JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+// Allows use to use DELETE methods in forms for ease of logout
+app.use(methodOverride("_method"));
 
 // Serve static content for the app from public directory
 app.use(express.static(path.join(__dirname, "client")));
