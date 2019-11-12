@@ -39,11 +39,19 @@ router.post(
   "/login",
   passport.authenticate("local", {
     // Redirect if success or fail
-    successRedirect: "/",
+    // successRedirect: "/",
     failureRedirect: "/login",
     // Use express flash to display error to user
     failureFlash: true
-  })
+  }),
+  (req, res) => {
+    // I've got the user here. What can I do with it in order to render something differently?
+    console.log("req.user: ", req.user);
+    // Redirect?
+    if (req.user || req.session.user)
+      return res.redirect("/" + req.user._id || req.session.user._id);
+    return res.redirect("/login");
+  }
 );
 
 router.get("/logout", (req, res) => {
