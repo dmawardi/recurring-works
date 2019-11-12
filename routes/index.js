@@ -60,6 +60,10 @@ router.get("/register", blockIfAuthenticated, function(req, res) {
   res.sendFile(path.join(__dirname, "../client/register.html"));
 });
 
+router.get("/app", function(req, res) {
+  res.sendFile(path.join(__dirname, "../client/public/index.html"));
+});
+
 // const User = require("../controller/user");
 
 module.exports = router;

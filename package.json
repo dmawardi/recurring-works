@@ -2,10 +2,16 @@
   "name": "recurring-works",
   "version": "1.0.0",
   "description": "Maintenance Preventative Recurring Works Planner/Tracker",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "sequelize db:seed:all"
+    "seed": "sequelize db:seed:all",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:concur": "concurrently \"npm run server\" \"npm run client\"",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install"
   },
   "repository": {
     "type": "git",
@@ -22,10 +28,12 @@
   "homepage": "https://github.com/dmawardi/recurring-works#readme",
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "concurrently": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",
+    "if-env": "^1.0.4",
     "method-override": "^3.0.0",
     "mysql2": "^2.0.0",
     "passport": "^0.4.0",

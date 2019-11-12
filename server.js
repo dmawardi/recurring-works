@@ -9,7 +9,6 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
 const session = require("express-session");
-const methodOverride = require("method-override");
 
 const initializePassport = require("./controller/passport-config");
 initializePassport(passport);
@@ -35,7 +34,7 @@ var routes = require("./routes");
 
 // Init express server and port
 var app = express();
-var PORT = process.env.PORT || 8000;
+var PORT = process.env.PORT || 3001;
 
 // Middleware
 // Parse application body and use JSON
@@ -52,7 +51,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // Allows use to use DELETE methods in forms for ease of logout
-app.use(methodOverride("_method"));
 
 // Serve static content for the app from public directory
 app.use(express.static(path.join(__dirname, "client")));
