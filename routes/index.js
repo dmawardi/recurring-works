@@ -7,6 +7,7 @@ const passport = require("passport");
 
 // Custom middleware function that checks if a user is authenticated to continue, and if not, redirects to login
 function allowThroughIfAuthenticated(req, res, next) {
+  console.log(req.isAuthenticated());
   // If user is authenticated
   if (req.isAuthenticated()) {
     console.log("Allowing through to requested page");
@@ -35,7 +36,7 @@ function blockIfAuthenticated(req, res, next) {
 router.use("/api", apiRoutes);
 
 // If the main page is opened, redirect user using middleware to login page
-router.get("/", allowThroughIfAuthenticated, function(req, res) {
+router.get("/", function(req, res) {
   // Why is this no longer being triggered????
   console.log("Hitting Home!");
 

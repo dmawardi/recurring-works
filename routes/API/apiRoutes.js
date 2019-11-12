@@ -45,11 +45,11 @@ router.post(
     failureFlash: true
   }),
   (req, res) => {
+    console.log("User authenticating");
     // I've got the user here. What can I do with it in order to render something differently?
     console.log("req.user: ", req.user);
     // Redirect?
-    if (req.user || req.session.user)
-      return res.redirect("/" + req.user._id || req.session.user._id);
+    if (req.user || req.session.user) return res.redirect("/");
     return res.redirect("/login");
   }
 );
