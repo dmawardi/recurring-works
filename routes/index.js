@@ -1,6 +1,8 @@
 const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require(path.join(__dirname, "/API/apiRoutes"));
+const loginRoutes = require(path.join(__dirname, "./login.js"));
+
 // Encryption package
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -34,34 +36,35 @@ function blockIfAuthenticated(req, res, next) {
 
 // API Routes
 router.use("/api", apiRoutes);
+router.use("/account", loginRoutes);
 
 // If the main page is opened, redirect user using middleware to login page
+// router.get("/", function(req, res) {
+//   // Why is this no longer being triggered????
+//   console.log("Hitting Home!");
+
+//   console.log("Hitting Home! User: ", req.user);
+//   // res.send(req.user);
+//   //   res.sendFile("index.html");
+//   res.sendFile(path.join(__dirname, "../client/index.html"));
+// });
+
+// // Login route
+// // If the user is already logged in, redirect user using middleware to index
+// router.get("/login", function(req, res) {
+//   console.log("Hitting Login");
+//   //   res.sendFile("index.html");
+//   res.sendFile(path.join(__dirname, "../client/login.html"));
+// });
+
+// // Register route
+// router.get("/register", blockIfAuthenticated, function(req, res) {
+//   console.log("Hitting Register");
+//   //   res.sendFile("index.html");
+//   res.sendFile(path.join(__dirname, "../client/register.html"));
+// });
+
 router.get("/", function(req, res) {
-  // Why is this no longer being triggered????
-  console.log("Hitting Home!");
-
-  console.log("Hitting Home! User: ", req.user);
-  // res.send(req.user);
-  //   res.sendFile("index.html");
-  res.sendFile(path.join(__dirname, "../client/index.html"));
-});
-
-// Login route
-// If the user is already logged in, redirect user using middleware to index
-router.get("/login", function(req, res) {
-  console.log("Hitting Login");
-  //   res.sendFile("index.html");
-  res.sendFile(path.join(__dirname, "../client/login.html"));
-});
-
-// Register route
-router.get("/register", blockIfAuthenticated, function(req, res) {
-  console.log("Hitting Register");
-  //   res.sendFile("index.html");
-  res.sendFile(path.join(__dirname, "../client/register.html"));
-});
-
-router.get("/app", function(req, res) {
   res.sendFile(path.join(__dirname, "../client/public/index.html"));
 });
 

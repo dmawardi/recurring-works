@@ -5,13 +5,6 @@ if (process.env.NODE_ENV !== "production") {
 
 var express = require("express");
 const passport = require("passport");
-// Encryption package
-const bcrypt = require("bcrypt");
-const flash = require("express-flash");
-const session = require("express-session");
-
-const initializePassport = require("./controller/passport-config");
-initializePassport(passport);
 
 // Import db
 var db = require("./models");
@@ -27,16 +20,7 @@ var PORT = process.env.PORT || 3001;
 // Parse application body and use JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(flash());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+
 // Allows use to use DELETE methods in forms for ease of logout
 
 // Serve static content for the app from public directory

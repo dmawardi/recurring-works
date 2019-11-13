@@ -38,23 +38,22 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  // site.associate = function(models) {
-  //   // Associating Author with Posts
-  //   // When an Author is deleted, also delete any associated Posts
-  //   site.belongsTo(models.user, {
-  //     as: "CurrentUserID",
-  //     foreignKey: "UserId"
-  //   });
-  // };
-
-  site.associate = models => {
-    // site.hasMany(models.equipment, {
-    //   onDelete: "cascade"
-    // });
-    // site.belongsTo(models.equipment_category, {
-    //   foreignKey: "category_id"
-    // });
+  site.associate = function(models) {
+    // Associating Author with Posts
+    // When an Author is deleted, also delete any associated Posts
+    site.belongsTo(models.user, {
+      foreignKey: "user_id"
+    });
   };
+
+  // site.associate = models => {
+  //   // site.hasMany(models.equipment, {
+  //   //   onDelete: "cascade"
+  //   // });
+  //   // site.belongsTo(models.equipment_category, {
+  //   //   foreignKey: "category_id"
+  //   // });
+  // };
 
   return site;
 };

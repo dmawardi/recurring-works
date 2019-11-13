@@ -2,11 +2,18 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import NavBar from "./components/navbar";
+import Landing from "./components/landing";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+        </Switch>
+      </Router>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

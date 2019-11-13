@@ -3,20 +3,6 @@ const User = require("../controller/user");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
-// passport.use(
-//   new LocalStrategy(function(username, password, done) {
-//     console.log("trying to authenticate");
-//     User.findByEmail(email).then(data => {
-//       console.log(data);
-//     });
-
-//     // if (err) { return done(err); }
-//     // if (!user) { return done(null, false); }
-//     // if (!user.verifyPassword(password)) { return done(null, false); }
-//     // return done(null, user);
-//   })
-// );
-
 // Initialize new passport package
 function initialize(passport) {
   console.log("Passport object: ", passport);
