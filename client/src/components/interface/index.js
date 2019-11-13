@@ -51,7 +51,7 @@ function Interface() {
       <Router>
         <NavBar isLoggedIn={isLoggedIn} />
         <Switch>
-          <Route exact path="/" component={Landing} />
+          {/* <Route exact path="/" component={Landing} /> */}
 
           <Route
             exact
@@ -63,7 +63,7 @@ function Interface() {
               />
             )}
           />
-          <Route
+          {/* <Route
             exact
             patch="/register"
             component={() => (
@@ -72,7 +72,7 @@ function Interface() {
                 handleFormSubmit={handleFormSubmit}
               />
             )}
-          />
+          /> */}
         </Switch>
       </Router>
     </>

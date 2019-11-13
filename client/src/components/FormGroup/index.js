@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const data = {
   site_id: 1,
@@ -10,21 +10,6 @@ const data = {
   postcode: 3000,
   country: "Australia"
 };
-
-const login = [
-  {
-    nameFor: "email",
-    type: "email",
-    label: "Email Address",
-    placeholder: "Email"
-  },
-  {
-    nameFor: "password",
-    type: "password",
-    label: "Password",
-    placeholder: "Password"
-  }
-];
 
 const register = [
   {
@@ -60,6 +45,20 @@ const register = [
 ];
 
 function FormGroup(props) {
+  const login = [
+    {
+      nameFor: "email",
+      type: "email",
+      label: "Email Address",
+      placeholder: "Email"
+    },
+    {
+      nameFor: "password",
+      type: "password",
+      label: "Password",
+      placeholder: "Password"
+    }
+  ];
   return (
     <>
       {login.map(formItem => {

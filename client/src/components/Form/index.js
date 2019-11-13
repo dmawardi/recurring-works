@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import FormGroup from "../FormGroup";
 import { Route, Switch } from "react-router-dom";
 
@@ -68,32 +68,11 @@ function Form(props) {
   ];
   return (
     <form>
-      <Switch>
-        <Route
-          exact
-          path="/login"
-          Component={() => {
-            return (
-              <FormGroup
-                formData={accountForms.login}
-                handleChange={props.handleChange}
-              />
-            );
-          }}
-        />
-        <Route
-          exact
-          path="/register"
-          Component={() => {
-            return (
-              <FormGroup
-                formData={accountForms.register}
-                handleChange={props.handleChange}
-              />
-            );
-          }}
-        />
-      </Switch>
+      <FormGroup
+        // formData={accountForms.login}
+        handleChange={props.handleChange}
+      />
+      <Switch></Switch>
 
       {/* <div className="form-group">
         <label for="email">Email address</label>
