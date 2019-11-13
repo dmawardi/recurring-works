@@ -10,7 +10,7 @@ const register = newUser => {
       password: newUser.password
     })
     .then(res => {
-      console.log("Registered a New Account");
+      console.log("Registered a New Account", res);
     });
 };
 
@@ -22,7 +22,7 @@ const login = user => {
     })
     .then(res => {
       console.log("Received login response: ", res);
-      return res.data;
+      console.log(res.data);
     })
     .catch(err => {
       console.error(err);
@@ -37,7 +37,7 @@ const logOut = user => {
     })
     .then(res => {
       console.log("user fun: Received logout response: ", res);
-      return res.data;
+      console.log(res.data);
     })
     .catch(err => {
       console.error(err);

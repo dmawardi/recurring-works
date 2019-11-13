@@ -5,7 +5,6 @@ const passport = require("passport");
 
 // Initialize new passport package
 function initialize(passport) {
-  console.log("Passport object: ", passport);
   // Store aync function in authenticateUser
   // Function takes email, password and cb function
 
@@ -28,8 +27,6 @@ function initialize(passport) {
 const authenticateUser = async (email, password, cb) => {
   // Find user by email in database and store: user
   let user = await User.findByEmail(email);
-
-  console.log("Authenticating User and found: ", user);
 
   // If the results length is not greater than 0
   if (user.length == 0 || user.length == null) {

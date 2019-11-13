@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // , Route, Switch
-import userFunctions from "../userFunctions/index";
+import userFunctions from "../UserFunctions/index";
 import { useCookies } from "react-cookie";
 
 // , { useState, useEffect }
 
-function NavBar() {
-  const [cookies] = useCookies(["login"]);
+function NavBar(props) {
+  const [cookies] = useCookies();
   console.log(cookies);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const logOut = e => {
     e.preventDefault();
@@ -72,49 +72,16 @@ function NavBar() {
             <a className="navbar-brand" href="/">
               Recurring Works
             </a>
+            {props.isLoggedIn ? "Logged In" : "Not Logged In"}
             {/* place other links on navbar below here */}
           </div>
         </li>
       </ul>
 
       {/* Login Portion */}
-      <Router>{isLoggedIn ? userLink : loginRegLink}</Router>
+      {props.isLoggedIn ? userLink : loginRegLink}
       <button onClick={printStats}>Print Cookies</button>
-      <div>
-        <form
-          className="form-inline my-2 my-lg-0"
-          action="/account/login"
-          method="POST"
-        >
-          <div>
-            <label for="email">Email</label>
-            <input
-              className="form-control mr-sm-2"
-              type="email"
-              id="email"
-              name="email"
-              required
-            />
-          </div>
-
-          <div>
-            <label for="password">Password</label>
-            <input
-              className="form-control mr-sm-2"
-              type="password"
-              id="password"
-              name="password"
-              required
-            />
-          </div>
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Login
-          </button>
-        </form>
-      </div>
+      <div></div>
     </nav>
   );
 }
