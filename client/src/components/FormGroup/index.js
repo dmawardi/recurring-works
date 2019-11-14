@@ -45,20 +45,6 @@ const register = [
 ];
 
 function FormGroup(props) {
-  const login = [
-    {
-      nameFor: "email",
-      type: "email",
-      label: "Email Address",
-      placeholder: "Email"
-    },
-    {
-      nameFor: "password",
-      type: "password",
-      label: "Password",
-      placeholder: "Password"
-    }
-  ];
   return (
     <>
       {props.formData.map((formItem, index) => {

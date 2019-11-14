@@ -11,6 +11,7 @@ const Vendor = require("../../controller/vendor");
 router.get("/sites", (req, res) => {
   console.log("Hitting Sites");
   console.log("req:", req.body);
+  console.log("user: ", req);
   Site.findAll()
     .then(data => {
       res.json(data);

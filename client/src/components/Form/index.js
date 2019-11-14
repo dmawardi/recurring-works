@@ -37,10 +37,10 @@ var accountForms = {
       placeholder: "Doe"
     },
     {
-      nameFor: "email",
-      type: "email",
-      label: "Email Address",
-      placeholder: "Email"
+      nameFor: "username",
+      type: "text",
+      label: "Username",
+      placeholder: "Username"
     },
     {
       nameFor: "password",

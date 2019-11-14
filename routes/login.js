@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require("../controller/user");
@@ -51,7 +49,7 @@ router.post("/register", async function(req, res) {
     first_name: req.body.firstName,
     last_name: req.body.lastName,
     email: req.body.email,
-    username: req.body.userName,
+    username: req.body.username,
     password: hashedPassword
   })
     .then(data => {
@@ -77,7 +75,7 @@ router.post(
   "/login",
   passport.authenticate("local", {
     // Redirect if success or fail
-    successRedirect: "/",
+    // successRedirect: "/",
     failureRedirect: "/login",
     // Use express flash to display error to user
     failureFlash: true
@@ -86,13 +84,22 @@ router.post(
     console.log("User authenticating");
     // I've got the user here. What can I do with it in order to render something differently?
     console.log("req.user: ", req.user);
+    // console.log("res: ", res);
     // Redirect?
     if (req.user || req.session.user) {
-      res.status(200).json({ message: "Successfully logged in" });
+      console.log("User ID: " + req.user_id || req.session.user._id);
+      res.status(200).json({
+        profile: {
+          first_name: req.user.first_name,
+          last_name: req.user.last_name
+        },
+        message: "Successfully logged in"
+      });
+    } else {
+      res
+        .status(500)
+        .json({ error: "Failed to login. Incorrect email/password" });
     }
-    res
-      .status(400)
-      .json({ error: "Failed to login. Incorrect email/password" });
   }
 );
 

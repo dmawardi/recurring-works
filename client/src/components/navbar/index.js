@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // , Route, Switch
-import userFunctions from "../UserFunctions/index";
+import userFunctions from "../utils/login";
 import { useCookies } from "react-cookie";
 
 // , { useState, useEffect }
@@ -16,10 +16,6 @@ function NavBar(props) {
     userFunctions.logOut().then(res => {
       console.log("navbar: logout response:", res);
     });
-  };
-
-  const printStats = e => {
-    console.log(cookies);
   };
 
   const loginRegLink = (
@@ -72,7 +68,12 @@ function NavBar(props) {
             <a className="navbar-brand" href="/">
               Recurring Works
             </a>
-            {props.isLoggedIn ? "Logged In" : "Not Logged In"}
+            {props.profile.first_name
+              ? "Logged In: " +
+                props.profile.first_name +
+                " " +
+                props.profile.last_name
+              : "Not Logged In"}
             {/* place other links on navbar below here */}
           </div>
         </li>
@@ -80,7 +81,7 @@ function NavBar(props) {
 
       {/* Login Portion */}
       {props.isLoggedIn ? userLink : loginRegLink}
-      <button onClick={printStats}>Print Cookies</button>
+      <button onClick={props.printStats}>Print Cookies</button>
       <div></div>
     </nav>
   );

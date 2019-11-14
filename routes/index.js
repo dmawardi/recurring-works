@@ -1,7 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require(path.join(__dirname, "/API/apiRoutes"));
-const loginRoutes = require(path.join(__dirname, "./login.js"));
+const loginRoutes = require(path.join(__dirname, "./login"));
 
 // Encryption package
 const bcrypt = require("bcrypt");
@@ -9,7 +9,7 @@ const passport = require("passport");
 
 // Custom middleware function that checks if a user is authenticated to continue, and if not, redirects to login
 function allowThroughIfAuthenticated(req, res, next) {
-  console.log(req.isAuthenticated());
+  console.log("Login status: " + req.isAuthenticated());
   // If user is authenticated
   if (req.isAuthenticated()) {
     console.log("Allowing through to requested page");
@@ -18,7 +18,7 @@ function allowThroughIfAuthenticated(req, res, next) {
   }
   // Else redirect to login page
   console.log("Redirect to login page");
-  res.redirect("/login");
+  // res.redirect("/login");
 }
 
 // Custom middleware function that checks if a user is authenticated and if not, redirects to login
@@ -27,7 +27,7 @@ function blockIfAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     console.log("Redirect to index");
     // Return callback function
-    return res.redirect("/");
+    // res.redirect("/");
   }
   // Else redirect to login page
   console.log("Allow through");
