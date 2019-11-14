@@ -61,10 +61,10 @@ function FormGroup(props) {
   ];
   return (
     <>
-      {login.map(formItem => {
+      {props.formData.map((formItem, index) => {
         return (
-          <div className="form-group">
-            <label for={formItem.nameFor}>{formItem.label}</label>
+          <div className="form-group" key={index}>
+            <label htmlFor={formItem.nameFor}>{formItem.label}</label>
             <input
               onChange={props.handleChange}
               type={formItem.type}

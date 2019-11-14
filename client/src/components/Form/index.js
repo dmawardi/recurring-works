@@ -2,57 +2,8 @@ import React from "react";
 import FormGroup from "../FormGroup";
 import { Route, Switch } from "react-router-dom";
 
-function Form(props) {
-  var accountForms = {
-    login: [
-      {
-        nameFor: "email",
-        type: "email",
-        label: "Email Address",
-        placeholder: "Email"
-      },
-      {
-        nameFor: "password",
-        type: "password",
-        label: "Password",
-        placeholder: "Password"
-      }
-    ],
-    register: [
-      {
-        nameFor: "email",
-        type: "email",
-        label: "Email Address",
-        placeholder: "Email"
-      },
-      {
-        nameFor: "firstName",
-        type: "text",
-        label: "First Name",
-        placeholder: "John"
-      },
-      {
-        nameFor: "lastName",
-        type: "text",
-        label: "Last Name",
-        placeholder: "Doe"
-      },
-      {
-        nameFor: "email",
-        type: "email",
-        label: "Email Address",
-        placeholder: "Email"
-      },
-      {
-        nameFor: "password",
-        type: "password",
-        label: "Password",
-        placeholder: "Password"
-      }
-    ]
-  };
-
-  const login = [
+var accountForms = {
+  login: [
     {
       nameFor: "email",
       type: "email",
@@ -65,39 +16,61 @@ function Form(props) {
       label: "Password",
       placeholder: "Password"
     }
-  ];
+  ],
+  register: [
+    {
+      nameFor: "email",
+      type: "email",
+      label: "Email Address",
+      placeholder: "Email"
+    },
+    {
+      nameFor: "firstName",
+      type: "text",
+      label: "First Name",
+      placeholder: "John"
+    },
+    {
+      nameFor: "lastName",
+      type: "text",
+      label: "Last Name",
+      placeholder: "Doe"
+    },
+    {
+      nameFor: "email",
+      type: "email",
+      label: "Email Address",
+      placeholder: "Email"
+    },
+    {
+      nameFor: "password",
+      type: "password",
+      label: "Password",
+      placeholder: "Password"
+    }
+  ]
+};
+
+function pathSpecificForm(path) {
+  switch (path) {
+    case "register":
+      return accountForms.register;
+    case "login":
+      return accountForms.login;
+    default:
+      break;
+  }
+}
+
+function Form(props) {
   return (
     <form>
       <FormGroup
-        // formData={accountForms.login}
+        //   Using the current React path, determine form to show
+        formData={pathSpecificForm(props.path)}
         handleChange={props.handleChange}
       />
-      <Switch></Switch>
 
-      {/* <div className="form-group">
-        <label for="email">Email address</label>
-        <input
-          onChange={props.handleChange}
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="form-control"
-          placeholder="email"
-        />
-      </div>
-
-      <div className="form-group">
-        <label for="password">Password</label>
-        <input
-          onChange={props.handleChange}
-          type="password"
-          className="form-control"
-          id="password"
-          placeholder="Password"
-          name="password"
-        />
-      </div> */}
       <div>
         <button
           onClick={props.handleFormSubmit}

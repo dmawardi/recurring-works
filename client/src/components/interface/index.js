@@ -51,28 +51,30 @@ function Interface() {
       <Router>
         <NavBar isLoggedIn={isLoggedIn} />
         <Switch>
-          {/* <Route exact path="/" component={Landing} /> */}
+          <Route exact path="/" component={Landing} />
 
           <Route
             exact
-            patch="/login"
+            path="/login"
             component={() => (
               <Form
+                path="login"
                 handleChange={handleFormChange}
                 handleFormSubmit={handleFormSubmit}
               />
             )}
           />
-          {/* <Route
+          <Route
             exact
-            patch="/register"
+            path="/register"
             component={() => (
               <Form
+                path="register"
                 handleChange={handleFormChange}
                 handleFormSubmit={handleFormSubmit}
               />
             )}
-          /> */}
+          />
         </Switch>
       </Router>
     </>
