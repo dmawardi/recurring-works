@@ -86,14 +86,10 @@ router.post(
     console.log("req.user: ", req.user);
     // console.log("res: ", res);
     // Redirect?
-    if (req.user || req.session.user) {
-      console.log("User ID: " + req.user_id || req.session.user._id);
-      res.status(200).json({
-        profile: {
-          first_name: req.user.first_name,
-          last_name: req.user.last_name
-        },
-        message: "Successfully logged in"
+    if (req.user) {
+      console.log("User ID: " + req.user.user_id);
+      res.send({
+        user_id: req.user.user_id
       });
     } else {
       res

@@ -30,6 +30,16 @@ function NavBar(props) {
           Register
         </Link>
       </li>
+      <li className="nav-item">
+        <Link to="/dashboard" className="nav-link">
+          Sites
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link to="/Events" className="nav-link">
+          Events
+        </Link>
+      </li>
     </ul>
   );
   const userLink = (

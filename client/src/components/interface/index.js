@@ -6,6 +6,7 @@ import API from "../utils/API";
 import NavBar from "../Navbar";
 import Landing from "../Landing";
 import Form from "../Form";
+import Dashboard from "../Dashboard";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,6 +21,7 @@ function Interface(props) {
   var [formData, setFormData] = useState({});
   var [userMessage, setuserMessage] = useState();
   var [userProfile, setUserProfile] = useState({});
+  var [siteData, setSiteData] = useState();
 
   const logOut = e => {
     e.preventDefault();
@@ -80,8 +82,10 @@ function Interface(props) {
       <Router>
         <NavBar profile={userProfile} printStats={printStats} />
         <Switch>
+          {/* Landing Page */}
           <Route exact path="/" component={Landing} />
 
+          {/* Login Page */}
           <Route
             exact
             path="/login"
@@ -100,6 +104,7 @@ function Interface(props) {
               )
             }
           />
+          {/* Register Page */}
           <Route
             exact
             path="/register"
@@ -118,6 +123,8 @@ function Interface(props) {
               )
             }
           />
+          {/* Sites page */}
+          <Route exact path="/dashboard" component={() => <Dashboard />} />
         </Switch>
       </Router>
     </>

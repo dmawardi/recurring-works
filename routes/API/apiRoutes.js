@@ -92,7 +92,27 @@ router.get("/equipment", function(req, res) {
   console.log("Hitting Equipment");
   Equipment.findAll()
     .then(data => {
-      res.json(data);
+      let resultReturn = [];
+
+      for (let i = 0; i < data.length; i++) {
+        let currentResult = {
+          category_id: data[i].category_id,
+          custom_serial_name_1: data[i].custom_serial_name_1,
+          custom_serial_1: data[i].custom_serial_1,
+          custom_serial_name_2: data[i].custom_serial_name_2,
+          custom_serial_2: data[i].custom_serial_2,
+          equipment_description: data[i].equipment_description,
+          equipment_id: data[i].equipment_id,
+          equipment_name: data[i].equipment_name,
+          lastMaintenanceDate: data[i].lastMaintenanceDate,
+          link_to_data_folder: data[i].link_to_data_folder,
+          link_to_warranty: data[i].link_to_warranty,
+          yearlyFrequency: data[i].yearlyFrequency
+        };
+        resultReturn.push(currentResult);
+      }
+
+      res.json(resultReturn);
     })
     .catch(err => {
       res.sendStatus(500);
