@@ -89,7 +89,7 @@ router.delete("/sites/:idToDelete", (req, res) => {
 // Below routes match with "/api/equipment/*"
 // Return all
 router.get("/equipment", function(req, res) {
-  console.log("Hitting Equipment");
+  console.log("Hitting Equipment! User ID: " + req.user);
 
   // Query Equipment table
   Equipment.findAll()

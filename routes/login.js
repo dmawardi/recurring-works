@@ -1,25 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const passport = require("passport");
 const User = require("../controller/user");
-// Encryption package
-const flash = require("express-flash");
-const session = require("express-session");
+// // Encryption package
+// const bcrypt = require("bcrypt");
+const passport = require("passport");
+// const flash = require("express-flash");
+// const session = require("express-session");
 
-router.use(flash());
-router.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
-  })
-);
-router.use(passport.initialize());
-router.use(passport.session());
+// router.use(flash());
+// router.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false
+//   })
+// );
+// router.use(passport.initialize());
+// router.use(passport.session());
 
-const initializePassport = require("../controller/passport-config");
-initializePassport(passport);
+// const initializePassport = require("../controller/passport-config");
+// initializePassport(passport);
 
 // Passport setup
 // const passport = require("passport");

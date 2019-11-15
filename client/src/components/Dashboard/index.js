@@ -12,13 +12,18 @@ class Dashboard extends React.Component {
 
   updateSiteEquipment = e => {
     console.log(e.target.getAttribute("data-id"));
-    axios.get("/api/equipment").then(data => {
-      console.log(data);
-      this.setState({
-        currentSiteEquipment: data.data.equipment,
-        currentSiteEvents: data.data.events
+    axios
+      .get("/api/equipment")
+      .then(data => {
+        console.log(data);
+        this.setState({
+          currentSiteEquipment: data.data.equipment,
+          currentSiteEvents: data.data.events
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    });
   };
 
   componentDidMount() {
