@@ -21,6 +21,14 @@ const Event = {
     });
     // .sort({ date: -1 });
   },
+  // Find all sorted by date
+  findAllIncluding: () => {
+    console.log("Finding all");
+    return db.maintenance_event.findAll({
+      include: [{ model: db.equipment }]
+    });
+    // .sort({ date: -1 });
+  },
   delete: idToDelete => {
     return db.maintenance_event.destroy({
       where: {
@@ -36,5 +44,16 @@ const Event = {
     });
   }
 };
+
+// Event.findAllIncluding()
+//   .then(data => {
+//     console.log("event info: " + data);
+//     // for (let i = 0; i < data.length; i++) {
+//     //   console.log("equip info: " + data[i].dataValues.equipment);
+//     // }
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   });
 
 module.exports = Event;

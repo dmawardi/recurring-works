@@ -90,10 +90,14 @@ router.delete("/sites/:idToDelete", (req, res) => {
 // Return all
 router.get("/equipment", function(req, res) {
   console.log("Hitting Equipment");
+
+  // Query Equipment table
   Equipment.findAll()
     .then(data => {
-      let resultReturn = [];
+      // Init result array for equipment
+      let equipResultReturn = [];
 
+      // Iterate through equipment data to prepare for appending
       for (let i = 0; i < data.length; i++) {
         let currentResult = {
           category_id: data[i].category_id,
@@ -109,10 +113,28 @@ router.get("/equipment", function(req, res) {
           link_to_warranty: data[i].link_to_warranty,
           yearlyFrequency: data[i].yearlyFrequency
         };
-        resultReturn.push(currentResult);
+        // Push element to result
+        equipResultReturn.push(currentResult);
       }
 
-      res.json(resultReturn);
+      // Query Events
+      Event.findAll().then(data => {
+        console.log(data);
+        // preprocess
+        let eventData = [];
+        for (let i = 0; i < data.length; i++) {
+          let currentData = data[i].dataValues;
+
+          eventData.push(currentData);
+        }
+
+        // Form final result
+        const finalResult = {
+          equipment: equipResultReturn,
+          events: eventData
+        };
+        res.json(finalResult);
+      });
     })
     .catch(err => {
       res.sendStatus(500);
@@ -190,7 +212,7 @@ router.get("/events", function(req, res) {
 
   console.log("req:", req.body);
   //   res.send("Events are here");
-  Event.findAll()
+  Event.findAllIncluding()
     .then(data => {
       res.json(data);
     })

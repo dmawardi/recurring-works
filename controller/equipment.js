@@ -11,6 +11,7 @@ const Equipment = {
     return db.equipment.findAll();
     // .sort({ date: -1 });
   },
+
   // Find all sorted by date
   findByID: idToFind => {
     return db.equipment.findAll({

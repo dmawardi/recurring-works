@@ -13,9 +13,10 @@ class Dashboard extends React.Component {
   updateSiteEquipment = e => {
     console.log(e.target.getAttribute("data-id"));
     axios.get("/api/equipment").then(data => {
-      console.log(data.data);
+      console.log(data);
       this.setState({
-        currentSiteEquipment: data.data
+        currentSiteEquipment: data.data.equipment,
+        currentSiteEvents: data.data.events
       });
     });
   };
@@ -110,16 +111,18 @@ class Dashboard extends React.Component {
                 </thead>
                 <tbody>
                   {this.state.currentSiteEquipment.map((val, index) => {
+                    // console.log(val);
                     return (
                       <EquipmentDetailRow
                         key={index}
-                        props={val}
+                        val={val}
                         onClick={this.selectDetail}
+                        eventData={this.state.currentSiteEvents}
                       />
                     );
                   })}
                 </tbody>
-              </table>{" "}
+              </table>
             </div>
           ) : (
             //   Else, show detail table}
