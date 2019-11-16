@@ -87,9 +87,11 @@ router.post(
     // console.log("res: ", res);
     // Redirect?
     if (req.user) {
-      console.log("User ID: " + req.user.user_id);
+      console.log("User ID Logged in: " + req.user.user_id);
       res.send({
-        user_id: req.user.user_id
+        user_id: req.user.user_id,
+        first_name: req.user.first_name,
+        last_name: req.user.last_name
       });
     } else {
       res
@@ -104,7 +106,7 @@ router.get("/logout", (req, res) => {
   req.logOut();
   console.log("User authenticated? ", req.isAuthenticated());
 
-  res.sendStatus(200).json({ message: "Logged Out Successfully" });
+  res.sendStatus(200);
 });
 
 module.exports = router;

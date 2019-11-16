@@ -92,6 +92,8 @@ function NavBar(props) {
       {/* Login Portion */}
       {props.isLoggedIn ? userLink : loginRegLink}
       <button onClick={props.printStats}>Print Cookies</button>
+      <button onClick={props.logOut}>Log Out</button>
+
       <div></div>
     </nav>
   );

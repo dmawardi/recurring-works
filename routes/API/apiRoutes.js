@@ -118,7 +118,6 @@ router.get("/equipment", function(req, res) {
 
       // Query Events
       Event.findAll().then(data => {
-        console.log(data);
         // preprocess
         let eventData = [];
         for (let i = 0; i < data.length; i++) {

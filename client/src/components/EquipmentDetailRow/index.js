@@ -21,7 +21,7 @@ function forecastFutureMonthlyEventColumns(
   // Make the last maintenance default date: a time in the past equal to the required frequency
   // (This will ensure that if no result is found, the default next maintenance date should be asap)
   var now = moment();
-  console.log("Moment object now: ", now.toString());
+  // console.log("Moment object now: ", now.toString());
   var lastMaintenanceDate = now.subtract(
     Math.round(12 / yearlyFrequency, "months")
   );
@@ -31,32 +31,48 @@ function forecastFutureMonthlyEventColumns(
     // If match is found, extract relevant details
     console.log("equip id to populate: " + equipmentIDToPopulate);
     if (eventData[i].equipment_id === equipmentIDToPopulate) {
-      console.log("Met condition of if statement");
       // Assign the date as the last maintenance date until another is found
       lastMaintenanceDate = moment(eventData[i].datetime_scheduled);
       // push to list of maintenance event dates array
       listOfMaintenanceEventDates.push({
-        month_scheduled: moment(eventData[i].datetime_scheduled),
+        date_scheduled: moment(eventData[i].datetime_scheduled),
         scheduled: true,
         status: eventData[i].status_of_maintenance
       });
     }
   }
-  console.log("list of maintenance event dates", listOfMaintenanceEventDates);
 
-  // while (isBefore(lastMaintenanceDate, format(2019 + 1, "y"))) {
+  console.log(
+    "Year 2019 object: ",
+    moment()
+      .year(2019 + 1)
+      .toString()
+  );
+  console.log("Current Last Maintenance Dte: ", lastMaintenanceDate);
+  console.log(
+    "Conditional test: ",
+    moment().isBefore(
+      lastMaintenanceDate,
+      moment(new Date("1/1/" + (2019 + 1)))
+    )
+  );
+
+  // while (moment().isBefore(lastMaintenanceDate, moment().year(2019 + 1))) {
   //   // lastMaintenanceDate = listOfMaintenanceEventDates[-1].month_scheduled
   //   listOfMaintenanceEventDates.push({
-  //     month_scheduled: addMonths(
-  //       lastMaintenanceDate,
-  //       Math.round(12 / yearlyFrequency)
+  //     date_scheduled: lastMaintenanceDate.add(
+  //       Math.round(12 / yearlyFrequency),
+  //       "months"
   //     ),
   //     scheduled: false,
   //     status: eventData.status_of_maintenance
   //   });
+  //   console.log("Forecasting events: ", listOfMaintenanceEventDates);
   //   // Reassign last maintenance date
-  //   lastMaintenanceDate = listOfMaintenanceEventDates[-1].month_scheduled;
+  //   // console.log(listOfMaintenanceEventDates[-1].date_scheduled);
   // }
+
+  console.log(listOfMaintenanceEventDates);
   // Calculate future events within current year given frequency
   let htmlReturn = (
     <td>
