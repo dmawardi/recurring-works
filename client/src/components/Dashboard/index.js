@@ -20,6 +20,7 @@ class Dashboard extends React.Component {
           currentSiteEquipment: data.data.equipment,
           currentSiteEvents: data.data.events
         });
+        console.log("State: ", this.state);
       })
       .catch(err => {
         console.log(err);

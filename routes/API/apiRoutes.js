@@ -10,8 +10,7 @@ const Vendor = require("../../controller/vendor");
 // Find all
 router.get("/sites", (req, res) => {
   console.log("Hitting Sites");
-  console.log("req:", req.body);
-  console.log("user: ", req);
+  console.log("user: ", req.user._id);
   Site.findAll()
     .then(data => {
       res.json(data);
@@ -89,7 +88,7 @@ router.delete("/sites/:idToDelete", (req, res) => {
 // Below routes match with "/api/equipment/*"
 // Return all
 router.get("/equipment", function(req, res) {
-  console.log("Hitting Equipment! User ID: " + req.user);
+  console.log("Hitting Equipment! User ID: " + req.user.user_id);
 
   // Query Equipment table
   Equipment.findAll()

@@ -10,14 +10,14 @@ function initialize(passport) {
 
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
   passport.serializeUser((user, cb) => {
-    console.log("Serialized: " + user.user_id);
+    // console.log("Serialized: " + user.user_id);
     return cb(null, user.user_id);
   });
   passport.deserializeUser((id, cb) => {
     User.findByID(id)
       .then(data => {
         console.log("Deserialized:", data);
-        return cb(null, data);
+        return cb(null, data[0]);
       })
       .catch(err => {
         return cb(err);

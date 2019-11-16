@@ -49,14 +49,14 @@ function Interface(props) {
       .login(formData)
       .then(res => {
         console.log("Received login response: ", res);
-        console.log(res.data);
-        if (res.data.message) {
-          console.log("Message: ", res.data.message);
-          setIsLoggedIn(true);
-          setUserProfile(res.data.profile);
-        } else {
-          console.log("Error", res.data.error);
-        }
+        console.log("User Id: " + res.data.user_id);
+        // if (res.data.message) {
+        //   console.log("Message: ", res.data.message);
+        //   setIsLoggedIn(true);
+        //   setUserProfile(res.data.profile);
+        // } else {
+        //   console.log("Error", res.data.error);
+        // }
       })
       .catch(err => {
         console.error(err);
