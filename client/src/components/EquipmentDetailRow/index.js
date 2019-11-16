@@ -11,6 +11,7 @@ moment().format();
 // var format = require("date-fns/format");
 // var subMonths = require("date-fns/subMonths");
 
+// Forecast future events
 function forecastFutureMonthlyEventColumns(
   equipmentIDToPopulate,
   yearlyFrequency,
@@ -19,8 +20,8 @@ function forecastFutureMonthlyEventColumns(
   // While the year is 2019, calculate required frequency months
   let listOfMaintenanceEventDates = [];
   // Make the last maintenance default date: a time in the past equal to the required frequency
-  // (This will ensure that if no result is found, the default next maintenance date should be asap)
   var now = moment();
+  // (This will ensure that if no result is found, the default value will cause next maintenance date to be scheduled for this month)
   var lastMaintenanceDate = now.subtract(
     Math.round(12 / yearlyFrequency, "months")
   );
@@ -110,6 +111,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
 
   // Iterate through month format array (once for each month) to check if occurence of event within month
   for (let i = 0; i < monthFormatArray.length; i++) {
+    console.log("Going through loop at: " + i);
     // Form date based on current month
     let currentDateToCheck = moment(
       currentYearToCheck + "-" + monthFormatArray[i] + "-01"
@@ -117,7 +119,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     let numberOfEvents = 0;
     let scheduledEvent = false;
     let status = false;
-    let result = {};
+    var result = {};
 
     // Iterate through list of maintenance event dates checking if there's a match with the current month we are checking
     for (let i = 0; i < listOfMaintenanceEventDates.length; i++) {
@@ -127,25 +129,28 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
         numberOfEvents += 1;
 
         // If it's a scheduled event. mark scheduled event true
-        if (listOfMaintenanceEventDates.scheduled) {
+        if (listOfMaintenanceEventDates[i].scheduled) {
+          // Set scheduled event to true and record status
           scheduledEvent = true;
-          status = listOfMaintenanceEventDates.status;
+          status = listOfMaintenanceEventDates[i].status;
         }
       }
+      // Create record
       result = {
         numberOfEvents: numberOfEvents,
         scheduledEvent: scheduledEvent,
         status: status
       };
-      // Reset results
-      // Push result for current month into result
-      monthSquareFormat.push(result);
-      // Reset variables for loop refresh
-      numberOfEvents = 0;
-      scheduledEvent = false;
-      status = false;
-      result = {};
     }
+    console.log("Pushing results");
+    // Reset results
+    // Push result for current month into result
+    monthSquareFormat.push(result);
+    // Reset variables for loop refresh
+    numberOfEvents = 0;
+    scheduledEvent = false;
+    status = false;
+    result = {};
   }
   console.log(
     "The Month square format result for this equipment is: ",
