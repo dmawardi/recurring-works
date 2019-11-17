@@ -3,91 +3,82 @@ import moment from "moment";
 import "./style.css";
 moment().format();
 // import axios from "axios";
-// var isDate = require("date-fns/isDate");
-// var getMonth = require("date-fns/getMonth");
-// var startOfToday = require("date-fns/startOfToday");
-// var isBefore = require("date-fns/isBefore");
-// var addMonths = require("date-fns/addMonths");
-// var format = require("date-fns/format");
-// var subMonths = require("date-fns/subMonths");
 
 // Forecast future events
 function forecastFutureMonthlyEventColumns(
   equipmentIDToPopulate,
   yearlyFrequency,
-  eventData
+  eventData,
+  yearToForecast
 ) {
   // While the year is 2019, calculate required frequency months
   let listOfMaintenanceEventDates = [];
+  // Using yearly frequency, determine every x months
+  let everyFreqMonths = Math.round(12 / yearlyFrequency);
+  console.log("Set to repeat every x months: " + everyFreqMonths);
   // Make the last maintenance default date: a time in the past equal to the required frequency
   var now = moment();
   // (This will ensure that if no result is found, the default value will cause next maintenance date to be scheduled for this month)
-  var lastMaintenanceDate = now.subtract(
-    Math.round(12 / yearlyFrequency, "months")
-  );
+  var lastMaintenanceDate = now.subtract(everyFreqMonths, "months");
   // Loop through site data collecting event maintenance dates that are scheduled
   for (let i = 0; i < eventData.length; i++) {
     // console.log("Current cycling event data: ", eventData[i]);
     // If match is found, extract relevant details
-    console.log("equip id to populate: " + equipmentIDToPopulate);
+    console.log(
+      "Going through event data for equipment ID: " + equipmentIDToPopulate
+    );
     if (eventData[i].equipment_id === equipmentIDToPopulate) {
       // Assign the date as the last maintenance date until another is found
       lastMaintenanceDate = moment(eventData[i].datetime_scheduled);
       // push to list of maintenance event dates array
+      // console.log("Maintenance event found. incrementing", eventData[i]);
+      lastMaintenanceDate = moment(eventData[i].datetime_scheduled);
+      // console.log("converted element: " + lastMaintenanceDate.toString());
       listOfMaintenanceEventDates.push({
-        date_scheduled: moment(eventData[i].datetime_scheduled),
+        date_scheduled: lastMaintenanceDate.toString(),
         scheduled: true,
-        status: eventData[i].status_of_maintenance
+        status: eventData[i].status_of_maintenance || false
       });
     }
   }
+  let limitYear = moment(new Date("01/01/" + (yearToForecast + 1)));
+  // console.log("Year to limit: " + limitYear.toString());
 
+  // Forecast next maintenance date and assign
+  lastMaintenanceDate = lastMaintenanceDate.add(everyFreqMonths, "months");
   // console.log(
-  //   "Conditional test: ",
-  //   moment().isBefore(
-  //     lastMaintenanceDate,
-  //     moment(new Date("1/1/" + (2019 + 1)))
-  //   )
+  //   "Just before we check and forecast, increment to next date." +
+  //     lastMaintenanceDate.toString()
   // );
-
-  while (moment(new Date("1/1/" + (2019 + 1))).isBefore(lastMaintenanceDate)) {
+  // Check if meets condition to add to list of maintenance event dates
+  while (lastMaintenanceDate.isBefore(limitYear)) {
+    // While the last maintenance date that was pushed is before the first of the following year
+    // let newMaintenanceDate = lastMaintenanceDate.add(everyFreqMonths, "months");
     // console.log(
-    //   "Passed before condition. Year 2019 object: ",
-    //   moment(new Date("1/1/" + (2019 + 1))).toString()
-    // );
-    // console.log(
-    //   "Current Last Maintenance Date: ",
-    //   lastMaintenanceDate.toString()
+    //   "Passed test,Forecasting... As " +
+    //     lastMaintenanceDate.toString() +
+    //     " is before " +
+    //     limitYear.toString()
     // );
 
-    let newMaintenanceDate = lastMaintenanceDate.add(
-      Math.round(12 / yearlyFrequency),
-      "months"
-    );
-    // console.log(newMaintenanceDate.toString());
-
+    // Push result to array
     listOfMaintenanceEventDates.push({
-      date_scheduled: newMaintenanceDate,
+      date_scheduled: lastMaintenanceDate.toString(),
       scheduled: false,
       status: eventData.status_of_maintenance
     });
-    lastMaintenanceDate = newMaintenanceDate;
     // Reassign last maintenance date
-    // console.log(listOfMaintenanceEventDates[-1].date_scheduled);
+    lastMaintenanceDate = lastMaintenanceDate.add(everyFreqMonths, "months");
   }
 
-  console.log("Forecasting events: ", listOfMaintenanceEventDates);
-  // Calculate future events within current year given frequency
-  // let htmlReturn = (
-  //   <td>
-  //     <div className="square"></div>
-  //   </td>
+  // console.log(
+  //   "Forecasting events: (last)" +
+  //     listOfMaintenanceEventDates[
+  //       listOfMaintenanceEventDates.length - 1
+  //     ].date_scheduled.toString()
   // );
+  // console.log("list of event dates", listOfMaintenanceEventDates);
 
-  // Return 12 <td> tags
-  //   for (let i = 0; i < 12; i++) {
-  //     htmlReturn = htmlReturn + <td>{i}</td>;
-  //   }
   return listOfMaintenanceEventDates;
 }
 // Generates square based on maintenance event forecast input
@@ -111,21 +102,39 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
 
   // Iterate through month format array (once for each month) to check if occurence of event within month
   for (let i = 0; i < monthFormatArray.length; i++) {
-    console.log("Going through loop at: " + i);
+    let yearLimit = currentYearToCheck + 1;
+
     // Form date based on current month
-    let currentDateToCheck = moment(
-      currentYearToCheck + "-" + monthFormatArray[i] + "-01"
+    var currentDateToCheck = moment(
+      new Date(monthFormatArray[i] + "/01/" + currentYearToCheck)
+      // Set the current year to limit to a year greater than the current year and month array
     );
     let numberOfEvents = 0;
     let scheduledEvent = false;
     let status = false;
     var result = {};
+    // console.log(
+    //   "List of maintenance events to check against",
+    //   listOfMaintenanceEventDates
+    // );
 
     // Iterate through list of maintenance event dates checking if there's a match with the current month we are checking
     for (let i = 0; i < listOfMaintenanceEventDates.length; i++) {
       // If the current date to check is within same month as event
-      if (currentDateToCheck.isSame(listOfMaintenanceEventDates[i], "month")) {
-        // Record details required to color
+      // console.log(
+      //   "To Check, whether maintenance event date: " +
+      //     listOfMaintenanceEventDates[i].date_scheduled.toString() +
+      //     " is in same month as: " +
+      //     currentDateToCheck.toString()
+      // );
+
+      if (
+        currentDateToCheck.isSame(
+          listOfMaintenanceEventDates[i].date_scheduled,
+          "month"
+        )
+      ) {
+        // Increment number of events by 1
         numberOfEvents += 1;
 
         // If it's a scheduled event. mark scheduled event true
@@ -142,7 +151,6 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
         status: status
       };
     }
-    console.log("Pushing results");
     // Reset results
     // Push result for current month into result
     monthSquareFormat.push(result);
@@ -152,6 +160,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     status = false;
     result = {};
   }
+
   console.log(
     "The Month square format result for this equipment is: ",
     monthSquareFormat
@@ -159,8 +168,11 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
   return monthSquareFormat;
 }
 
+// Creates square based on monthSquareFormat
 function createSquare(currentSquare) {
+  // Assign base square CSS class to class to use
   let classToUse = "square";
+  // init string with classes to add
   let classToAdd = "";
   // If an event is found at the month
   if (currentSquare.numberOfEvents > 0) {
@@ -169,6 +181,7 @@ function createSquare(currentSquare) {
   }
   // If the current square is a scheduled event
   if (currentSquare.scheduledEvent) {
+    // status of current square
     switch (currentSquare.status) {
       // if good, make green
       case "good":
@@ -188,9 +201,10 @@ function createSquare(currentSquare) {
     }
   }
 
+  // String concatenate the classes in new variable
   let squareClass = classToUse + classToAdd;
 
-  console.log("The square class is" + squareClass);
+  // console.log("The square class is" + squareClass);
   // Build display square
   let squareReturn = (
     <td>
@@ -219,11 +233,11 @@ function EquipmentDetailRow(props) {
         forecastFutureMonthlyEventColumns(
           props.val.equipment_id,
           props.val.yearlyFrequency,
-          props.eventData
+          props.eventData,
+          props.yearToForecast
         ),
-        2019
+        props.yearToForecast
       ).map(val => {
-        console.log(val);
         return createSquare(val);
       })}
     </tr>

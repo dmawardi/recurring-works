@@ -7,7 +7,8 @@ class Dashboard extends React.Component {
     sites: [],
     currentSiteEquipment: [],
     currentSiteEvents: [],
-    detail: false
+    detail: false,
+    yearToForecast: 2019
   };
 
   updateSiteEquipment = e => {
@@ -15,7 +16,6 @@ class Dashboard extends React.Component {
     axios
       .get("/api/equipment")
       .then(data => {
-        console.log(data);
         this.setState({
           currentSiteEquipment: data.data.equipment,
           currentSiteEvents: data.data.events
@@ -72,6 +72,20 @@ class Dashboard extends React.Component {
     });
   };
 
+  increaseDecreaseYear = e => {
+    const action = e.target.getAttribute("data-name");
+    console.log(action);
+    if (action === "+") {
+      this.setState({
+        yearToForecast: this.state.yearToForecast + 1
+      });
+    } else {
+      this.setState({
+        yearToForecast: this.state.yearToForecast - 1
+      });
+    }
+  };
+
   render() {
     return (
       <div className="container">
@@ -95,7 +109,14 @@ class Dashboard extends React.Component {
           {/* If there is no current detail in focus */}
           {!this.state.detail ? (
             <div className="col-10">
-              Year: 2019
+              Year:{" "}
+              <button onClick={this.increaseDecreaseYear} data-name="-">
+                -
+              </button>
+              {this.state.yearToForecast}
+              <button onClick={this.increaseDecreaseYear} data-name="+">
+                +
+              </button>
               <table className="table table-sm table-dark">
                 <thead>
                   <tr>
@@ -124,6 +145,7 @@ class Dashboard extends React.Component {
                         val={val}
                         onClick={this.selectDetail}
                         eventData={this.state.currentSiteEvents}
+                        yearToForecast={this.state.yearToForecast}
                       />
                     );
                   })}
