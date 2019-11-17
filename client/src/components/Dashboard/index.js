@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import EquipmentDetailRow from "../EquipmentDetailRow";
+import "./style.css";
 
 class Dashboard extends React.Component {
   state = {
@@ -94,15 +95,20 @@ class Dashboard extends React.Component {
           <div className="col-2">
             {this.state.sites.map((val, index) => {
               return (
-                <button
-                  key={val.site_id}
-                  type="button"
-                  className="btn btn-outline-primary"
-                  data-id={val.site_id}
-                  onClick={this.updateSiteEquipment}
-                >
-                  {val.site_name}
-                </button>
+                <div class="card">
+                  <div
+                    key={val.site_id}
+                    className="card-body site-card"
+                    data-siteId={val.site_id}
+                    onClick={this.updateSiteEquipment}
+                  >
+                    <h5 className="card-title">{val.site_name}</h5>
+                    <p className="card-text">{val.address1}</p>
+                    <button type="button" className="btn btn-outline-primary">
+                      <i class="fas fa-info-circle"></i>
+                    </button>
+                  </div>
+                </div>
               );
             })}
           </div>
