@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import StatusSquare from "../StatusSquare";
 import "./style.css";
 moment().format();
 // import axios from "axios";
@@ -131,53 +132,6 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
   return monthSquareFormat;
 }
 
-// Creates square based on monthSquareFormat
-function createSquare(currentSquare) {
-  // Assign base square CSS class to class to use
-  let classToUse = "square";
-  // init string with classes to add
-  let classToAdd = "";
-  // If an event is found at the month
-  if (currentSquare.numberOfEvents > 0) {
-    // Add class of white to make square white
-    classToAdd = " white";
-  }
-  // If the current square is a scheduled event
-  if (currentSquare.scheduledEvent) {
-    // status of current square
-    switch (currentSquare.status) {
-      // if good, make green
-      case "good":
-        classToAdd = " green";
-        break;
-      // if caution, make yellow
-      case "caution":
-        classToAdd = " yellow";
-        break;
-      // if alert, make red
-      case "alert":
-        classToAdd = " red";
-        break;
-      // Leave it as white
-      default:
-        classToAdd = " unknown";
-        break;
-    }
-  }
-
-  // String concatenate the classes in new variable
-  let squareClass = classToUse + classToAdd;
-
-  // Build display square
-  let squareReturn = (
-    <td>
-      <div className={squareClass}></div>
-    </td>
-  );
-
-  return squareReturn;
-}
-
 function EquipmentDetailRow(props) {
   return (
     <tr key={props.equipment_id}>
@@ -201,7 +155,7 @@ function EquipmentDetailRow(props) {
         ),
         props.yearToForecast
       ).map(val => {
-        return createSquare(val);
+        return StatusSquare(val);
       })}
     </tr>
   );
