@@ -10,17 +10,32 @@ class Dashboard extends React.Component {
     currentSiteEquipment: [],
     currentSiteEvents: [],
     detail: false,
-    yearToForecast: 2019
+    yearToForecast: 2019,
+    currentSiteName: ""
+  };
+
+  findSiteNameFromId = idToSearch => {
+    console.log("Searching for ID: " + idToSearch);
+    for (let i = 0; i < this.state.sites.length; i++) {
+      if (this.state.sites.site_id === idToSearch) {
+        console.log("Found: ", this.state.sites.site_name);
+        return this.state.sites.site_name;
+      }
+    }
   };
 
   updateSiteEquipmentDisplayGrid = e => {
-    console.log(e.target.getAttribute("data-id"));
+    let idToFocus = e.target.getAttribute("data-siteid");
+    console.log(e.target);
+    const nameOfFocusSite = this.findSiteNameFromId(idToFocus);
+    // TODO modify to only show data from site id
     axios
       .get("/api/equipment")
       .then(data => {
         this.setState({
           currentSiteEquipment: data.data.equipment,
-          currentSiteEvents: data.data.events
+          currentSiteEvents: data.data.events,
+          currentSiteName: nameOfFocusSite
         });
         console.log("State: ", this.state);
       })
@@ -93,7 +108,8 @@ class Dashboard extends React.Component {
       <div className="container">
         <div className="row">
           {/*  */}
-          <div className="col-2">
+          <div className="col-3">
+            {/* For each site in state data, return a Site card */}
             {this.state.sites.map((val, index) => {
               return (
                 <SiteCard
@@ -110,12 +126,13 @@ class Dashboard extends React.Component {
           </div>
           {/* If there is no current detail in focus */}
           {!this.state.detail ? (
-            <div className="col-10">
-              Year:{" "}
+            // Display the grid system
+            <div className="col-9">
+              {}
               <button onClick={this.increaseDecreaseYear} data-name="-">
                 -
               </button>
-              {this.state.yearToForecast}
+              Year:{this.state.yearToForecast}
               <button onClick={this.increaseDecreaseYear} data-name="+">
                 +
               </button>
