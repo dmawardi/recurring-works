@@ -128,7 +128,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     status = false;
     result = {};
   }
-
+  console.log("Month square format: ", monthSquareFormat);
   return monthSquareFormat;
 }
 

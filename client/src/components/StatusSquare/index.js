@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 
 function StatusSquare(props) {
+  console.log("Square props: ", props);
   // Creates square based on monthSquareFormat
 
   // Assign base square CSS class to class to use
