@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import EquipmentDetailRow from "../EquipmentDetailRow";
 import SiteCard from "../SiteCard";
+import TableHeader from "../TableHeader";
+import GridHeader from "../GridHeader";
+import SiteGridView from "../SiteGridView";
 import "./style.css";
 
 class Dashboard extends React.Component {
@@ -16,10 +19,12 @@ class Dashboard extends React.Component {
 
   findSiteNameFromId = idToSearch => {
     console.log("Searching for ID: " + idToSearch);
+    console.log("Current site state: ", this.state.sites);
     for (let i = 0; i < this.state.sites.length; i++) {
-      if (this.state.sites.site_id === idToSearch) {
-        console.log("Found: ", this.state.sites.site_name);
-        return this.state.sites.site_name;
+      console.log("Currently checking out ID: " + this.state.sites[i].site_id);
+      if (this.state.sites[i].site_id === parseInt(idToSearch)) {
+        console.log("Found: ", this.state.sites[i].site_name);
+        return this.state.sites[i].site_name;
       }
     }
   };
@@ -107,7 +112,7 @@ class Dashboard extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          {/*  */}
+          {/* Site navigation pane */}
           <div className="col-3">
             {/* For each site in state data, return a Site card */}
             {this.state.sites.map((val, index) => {
@@ -125,52 +130,16 @@ class Dashboard extends React.Component {
             })}
           </div>
           {/* If there is no current detail in focus */}
-          {!this.state.detail ? (
+          {!this.state.detail && this.state.currentSiteEquipment.length ? (
             // Display the grid system
-            <div className="col-9">
-              {}
-              <button onClick={this.increaseDecreaseYear} data-name="-">
-                -
-              </button>
-              Year:{this.state.yearToForecast}
-              <button onClick={this.increaseDecreaseYear} data-name="+">
-                +
-              </button>
-              <table className="table table-sm table-dark">
-                <thead>
-                  <tr>
-                    <th scope="col">Equipment ID</th>
-                    <th scope="col">Equipment Name</th>
-                    <th scope="col">January</th>
-                    <th scope="col">February</th>
-                    <th scope="col">March</th>
-                    <th scope="col">April</th>
-                    <th scope="col">May</th>
-                    <th scope="col">June</th>
-                    <th scope="col">July</th>
-                    <th scope="col">August</th>
-                    <th scope="col">September</th>
-                    <th scope="col">October</th>
-                    <th scope="col">November</th>
-                    <th scope="col">December</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.currentSiteEquipment.map((val, index) => {
-                    // console.log(val);
-                    return (
-                      <EquipmentDetailRow
-                        key={index}
-                        val={val}
-                        onClick={this.selectDetail}
-                        eventData={this.state.currentSiteEvents}
-                        yearToForecast={this.state.yearToForecast}
-                      />
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <SiteGridView
+              increaseDecreaseYear={this.increaseDecreaseYear}
+              currentSiteName={this.state.currentSiteName}
+              yearToForecast={this.state.yearToForecast}
+              currentSiteEvents={this.state.currentSiteEvents}
+              currentSiteEquipment={this.state.currentSiteEquipment}
+              selectDetail={this.selectDetail}
+            />
           ) : (
             //   Else, show detail table}
             <></>
