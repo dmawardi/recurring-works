@@ -14,8 +14,19 @@ function SiteCard(props) {
             {props.site_name}
           </button>
           <p className="card-text">{props.address1}</p>
-          <button type="button" className="btn btn-outline-primary">
-            <i className="fas fa-info-circle"></i>
+          <button
+            onClick={props.selectDetail}
+            data-name="site"
+            data-id={props.site_id}
+            type="button"
+            className="btn btn-outline-primary"
+          >
+            <i
+              onClick={props.selectDetail}
+              data-name="site"
+              data-id={props.site_id}
+              className="fas fa-info-circle"
+            ></i>
           </button>
         </div>
       </div>

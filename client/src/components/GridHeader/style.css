@@ -1,3 +1,19 @@
 .grid-header {
   background-color: #343a40;
 }
+
+.legend-box {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.legend-container {
+  margin-top: 10px;
+  padding: 5px 10px;
+  display: inline;
+}
+
+.legend-label {
+  font-weight: 500;
+  font-size: 80%;
+}

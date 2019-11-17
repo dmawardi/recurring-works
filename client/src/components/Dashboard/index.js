@@ -3,7 +3,7 @@ import axios from "axios";
 import EquipmentDetailRow from "../EquipmentDetailRow";
 import SiteCard from "../SiteCard";
 import TableHeader from "../TableHeader";
-import GridHeader from "../GridHeader";
+import DetailTable from "../DetailTable";
 import SiteGridView from "../SiteGridView";
 import "./style.css";
 
@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
     currentSiteEvents: [],
     detail: false,
     yearToForecast: 2019,
-    currentSiteName: ""
+    currentSite: {}
   };
 
   findSiteNameFromId = idToSearch => {
@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
       console.log("Currently checking out ID: " + this.state.sites[i].site_id);
       if (this.state.sites[i].site_id === parseInt(idToSearch)) {
         console.log("Found: ", this.state.sites[i].site_name);
-        return this.state.sites[i].site_name;
+        return this.state.sites[i];
       }
     }
   };
@@ -32,7 +32,8 @@ class Dashboard extends React.Component {
   updateSiteEquipmentDisplayGrid = e => {
     let idToFocus = e.target.getAttribute("data-siteid");
     console.log(e.target);
-    const nameOfFocusSite = this.findSiteNameFromId(idToFocus);
+    const focusSite = this.findSiteNameFromId(idToFocus);
+
     // TODO modify to only show data from site id
     axios
       .get("/api/equipment")
@@ -40,7 +41,7 @@ class Dashboard extends React.Component {
         this.setState({
           currentSiteEquipment: data.data.equipment,
           currentSiteEvents: data.data.events,
-          currentSiteName: nameOfFocusSite
+          currentSite: focusSite
         });
         console.log("State: ", this.state);
       })
@@ -62,13 +63,16 @@ class Dashboard extends React.Component {
     let typeToDetail = e.target.getAttribute("data-name");
     console.log("data id: " + idToDetail);
     console.log("data name: " + typeToDetail);
+    const focusSite = this.findSiteNameFromId(idToDetail);
 
     this.setState({
       detail: {
         type: typeToDetail,
         id: idToDetail
-      }
+      },
+      currentSite: focusSite
     });
+    console.log(this.state);
   };
 
   showDetailGivenCurrentState = () => {
@@ -123,6 +127,7 @@ class Dashboard extends React.Component {
                   updateSiteEquipmentDisplayGrid={
                     this.updateSiteEquipmentDisplayGrid
                   }
+                  selectDetail={this.selectDetail}
                   address1={val.address1}
                   site_name={val.site_name}
                 />
@@ -130,11 +135,11 @@ class Dashboard extends React.Component {
             })}
           </div>
           {/* If there is no current detail in focus */}
-          {!this.state.detail && this.state.currentSiteEquipment.length ? (
+          {!this.state.detail ? (
             // Display the grid system
             <SiteGridView
               increaseDecreaseYear={this.increaseDecreaseYear}
-              currentSiteName={this.state.currentSiteName}
+              currentSiteName={this.state.currentSite.site_name}
               yearToForecast={this.state.yearToForecast}
               currentSiteEvents={this.state.currentSiteEvents}
               currentSiteEquipment={this.state.currentSiteEquipment}
@@ -142,7 +147,12 @@ class Dashboard extends React.Component {
             />
           ) : (
             //   Else, show detail table}
-            <></>
+            <>
+              <DetailTable
+                clearDetail={this.clearDetail}
+                currentSite={this.state.currentSite}
+              />
+            </>
           )}
         </div>
       </div>

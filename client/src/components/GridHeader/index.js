@@ -30,6 +30,14 @@ const legend = [
   }
 ];
 
+const legendLabels = [
+  "Status: Good",
+  "Status: Caution",
+  "Status: Alert",
+  "Status: Unknown",
+  "Status: Due. Not scheduled Yet"
+];
+
 function GridHeader(props) {
   return (
     <div className="card grid-header">
@@ -45,12 +53,21 @@ function GridHeader(props) {
         <button onClick={props.increaseDecreaseYear} data-name="+">
           +
         </button>
+        <br />
         {/* Legend */}
-        <div className="container">
-          {legend.map(data => {
-            console.log("Currently on Legend Item: ", data);
-            return StatusSquare(data);
-          })}
+        <div className="container legend-container">
+          <div className="row">
+            {legend.map((data, i) => {
+              return (
+                <div className="col-3 legend-box">
+                  {StatusSquare(data)}
+                  <p>
+                    <span className="legend-label">{legendLabels[i]}</span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

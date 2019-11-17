@@ -155,7 +155,7 @@ function EquipmentDetailRow(props) {
         ),
         props.yearToForecast
       ).map(val => {
-        return StatusSquare(val);
+        return <td>{StatusSquare(val)}</td>;
       })}
     </tr>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 function StatusSquare(props) {
-  console.log("Square props: ", props);
+  // console.log("Square props: ", props);
   // Creates square based on monthSquareFormat
 
   // Assign base square CSS class to class to use
@@ -41,11 +41,7 @@ function StatusSquare(props) {
   let squareClass = classToUse + classToAdd;
 
   // Build display square
-  let squareReturn = (
-    <td>
-      <div className={squareClass}></div>
-    </td>
-  );
+  let squareReturn = <div className={squareClass}></div>;
 
   return squareReturn;
 }

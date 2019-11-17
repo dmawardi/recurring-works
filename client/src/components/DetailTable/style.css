@@ -1,0 +1,11 @@
+.detailTable {
+  margin-top: 15px;
+}
+
+.detail-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.detail-button-container button {
+  margin-right: 10px;
+}
