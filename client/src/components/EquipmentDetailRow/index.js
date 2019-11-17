@@ -197,6 +197,7 @@ function createSquare(currentSquare) {
         break;
       // Leave it as white
       default:
+        classToAdd = " unknown";
         break;
     }
   }
