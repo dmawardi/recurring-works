@@ -4,12 +4,9 @@ const findAllSites = () => {
   return axios.get("api/sites");
 };
 
-// const login = user => {
-//   return axios.post("account/login", {
-//     email: user.email,
-//     password: user.password
-//   });
-// };
+const editSite = (siteObject, idToUpdate) => {
+  return axios.put("api/sites/" + idToUpdate, siteObject);
+};
 
 // const logOut = user => {
 //   return axios
@@ -27,5 +24,6 @@ const findAllSites = () => {
 // };
 
 export default {
-  findAllSites: findAllSites
+  findAllSites: findAllSites,
+  editSite: editSite
 };

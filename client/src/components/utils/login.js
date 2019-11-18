@@ -19,13 +19,6 @@ const login = user => {
 
 const logOut = user => {
   return axios.get("account/logout");
-  // .then(res => {
-  //   console.log("util login: Received logout response: ", res);
-  //   console.log(res.data);
-  // })
-  // .catch(err => {
-  //   console.error(err);
-  // });
 };
 
 export default {

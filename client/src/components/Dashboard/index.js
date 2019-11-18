@@ -7,6 +7,7 @@ import DetailTable from "../DetailTable";
 import SiteGridView from "../SiteGridView";
 import "./style.css";
 import Form from "../Form";
+import API from "../utils/API";
 
 class Dashboard extends React.Component {
   state = {
@@ -53,9 +54,23 @@ class Dashboard extends React.Component {
     });
   };
 
-  handleFormSubmit = e => {
+  handleUpdateSubmit = e => {
     e.preventDefault();
     console.log(this.state.formData);
+    switch (this.state.detail.type) {
+      case "site":
+        API.editSite(
+          this.state.formData,
+          e.target.getAttribute("data-id")
+        ).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(
+            this.setState({
+              update: false
+            })
+          );
+        });
+    }
     // TODO place code here to account for different scenarios and form submissions
     // userFunctions.register(formData).then(res => {
     //   console.log("Registered a New Account", res);
@@ -84,7 +99,11 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount() {
-    axios.get("/api/sites").then(data => {
+    this.updateSiteInformationAndRender();
+  }
+
+  updateSiteInformationAndRender() {
+    return axios.get("/api/sites").then(data => {
       this.setState({
         sites: data.data
       });
@@ -180,11 +199,15 @@ class Dashboard extends React.Component {
             />
           ) : // If update mode activated
           this.state.update ? (
-            <Form
-              path="site"
-              handleChange={this.handleFormChange}
-              handleFormSubmit={this.han}
-            />
+            <div className="col-9">
+              {this.state.currentSite.site_name}
+              <Form
+                path="site"
+                handleChange={this.handleFormChange}
+                handleFormSubmit={this.handleUpdateSubmit}
+                idToUpdate={this.state.detail.id}
+              />
+            </div>
           ) : (
             //   Else, show detail table}
             <>

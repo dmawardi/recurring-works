@@ -88,7 +88,7 @@ var accountForms = {
     },
     {
       nameFor: "country",
-      type: "number",
+      type: "text",
       label: "Country",
       placeholder: "USA"
     }
@@ -135,7 +135,7 @@ function Form(props) {
           onClick={props.handleFormSubmit}
           type="submit"
           className="btn btn-primary"
-          data-id="the id required for update"
+          data-id={props.idToUpdate}
         >
           Submit
         </button>
