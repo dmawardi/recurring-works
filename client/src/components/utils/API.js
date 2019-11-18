@@ -8,6 +8,10 @@ const editSite = (siteObject, idToUpdate) => {
   return axios.put("api/sites/" + idToUpdate, siteObject);
 };
 
+const editEquipment = (equipmentObject, idToUpdate) => {
+  return axios.put("api/equipment/" + idToUpdate, equipmentObject);
+};
+
 // const logOut = user => {
 //   return axios
 //     .get("account/logout", {
@@ -25,5 +29,6 @@ const editSite = (siteObject, idToUpdate) => {
 
 export default {
   findAllSites: findAllSites,
-  editSite: editSite
+  editSite: editSite,
+  editEquipment: editEquipment
 };

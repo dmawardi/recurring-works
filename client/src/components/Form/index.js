@@ -92,6 +92,50 @@ var accountForms = {
       label: "Country",
       placeholder: "USA"
     }
+  ],
+  equipment: [
+    {
+      nameFor: "equipment_name",
+      type: "text",
+      label: "Equipment Name",
+      placeholder: "Air Conditioner Level 11A"
+    },
+    {
+      nameFor: "equipment_description",
+      type: "text",
+      label: "Equipment Description",
+      placeholder: "Found at the West end of the corridor"
+    },
+    {
+      nameFor: "custom_serial_name_1",
+      type: "text",
+      label: "Custom Serial Label 1",
+      placeholder: "Custom Serial Name 1"
+    },
+    {
+      nameFor: "custom_serial_1",
+      type: "text",
+      label: "Custom Serial Code 1",
+      placeholder: "Custom Serial Code 1"
+    },
+    {
+      nameFor: "custom_serial_name_2",
+      type: "text",
+      label: "Custom Serial Label 2",
+      placeholder: "Custom Serial Label 2"
+    },
+    {
+      nameFor: "custom_serial_2",
+      type: "text",
+      label: "Custom Serial Code 2",
+      placeholder: "Custom Serial Code 2"
+    },
+    {
+      nameFor: "yearlyFrequency",
+      type: "number",
+      label: "Yearly Frequency (X times per year)",
+      placeholder: "3"
+    }
   ]
 };
 

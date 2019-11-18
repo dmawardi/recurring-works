@@ -70,6 +70,19 @@ class Dashboard extends React.Component {
             })
           );
         });
+        break;
+      case "equipment":
+        API.editEquipment(
+          this.state.formData,
+          e.target.getAttribute("data-id")
+        ).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(
+            this.setState({
+              update: false
+            })
+          );
+        });
     }
     // TODO place code here to account for different scenarios and form submissions
     // userFunctions.register(formData).then(res => {
