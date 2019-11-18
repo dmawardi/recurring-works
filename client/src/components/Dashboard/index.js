@@ -6,6 +6,7 @@ import TableHeader from "../TableHeader";
 import DetailTable from "../DetailTable";
 import SiteGridView from "../SiteGridView";
 import "./style.css";
+import Form from "../Form";
 
 class Dashboard extends React.Component {
   state = {
@@ -14,7 +15,9 @@ class Dashboard extends React.Component {
     currentSiteEvents: [],
     detail: false,
     yearToForecast: 2019,
-    currentSite: {}
+    currentSite: {},
+    update: false,
+    formData: {}
   };
 
   findSiteNameFromId = idToSearch => {
@@ -27,6 +30,36 @@ class Dashboard extends React.Component {
         return this.state.sites[i];
       }
     }
+  };
+
+  // Activates edit mode by changing state
+  activateEditMode = e => {
+    this.setState({
+      update: true
+    });
+  };
+
+  handleFormChange = e => {
+    e.preventDefault();
+    var name = e.target.name;
+    let value = e.target.value;
+    let temporaryState = this.state.formData;
+    console.log("Name: " + e.target.name);
+    console.log("Value: " + e.target.value);
+    temporaryState[name] = value;
+    // console.log("temp state: ", temporaryState);
+    this.setState({
+      formData: temporaryState
+    });
+  };
+
+  handleFormSubmit = e => {
+    e.preventDefault();
+    console.log(this.state.formData);
+    // TODO place code here to account for different scenarios and form submissions
+    // userFunctions.register(formData).then(res => {
+    //   console.log("Registered a New Account", res);
+    // });
   };
 
   updateSiteEquipmentDisplayGrid = e => {
@@ -145,12 +178,20 @@ class Dashboard extends React.Component {
               currentSiteEquipment={this.state.currentSiteEquipment}
               selectDetail={this.selectDetail}
             />
+          ) : // If update mode activated
+          this.state.update ? (
+            <Form
+              path="site"
+              handleChange={this.handleFormChange}
+              handleFormSubmit={this.han}
+            />
           ) : (
             //   Else, show detail table}
             <>
               <DetailTable
                 clearDetail={this.clearDetail}
                 currentSite={this.state.currentSite}
+                activateEditMode={this.activateEditMode}
               />
             </>
           )}

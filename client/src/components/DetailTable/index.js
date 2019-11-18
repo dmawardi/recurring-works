@@ -19,7 +19,7 @@ function DetailTable(props) {
           <h6 className="card-subtitle mb-2 text-muted"></h6>
           <div className="detail-button-container">
             {/* Edit button to edit record */}
-            <button onClick={props.openForm} data-name="edit">
+            <button onClick={props.activateEditMode} data-name="edit">
               Edit
             </button>
 
