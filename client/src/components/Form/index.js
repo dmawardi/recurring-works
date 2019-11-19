@@ -136,6 +136,26 @@ var accountForms = {
       label: "Yearly Frequency (X times per year)",
       placeholder: "3"
     }
+  ],
+  maintenance_event: [
+    {
+      nameFor: "status_of_maintenance",
+      type: "text",
+      label: "Maintenance Status",
+      placeholder: "alert"
+    },
+    {
+      nameFor: "status_description",
+      type: "text",
+      label: "Status Description",
+      placeholder: "Regular Bi-annual Maintenance"
+    },
+    {
+      nameFor: "datetime_scheduled",
+      type: "datetime-local",
+      label: "Datetime Scheduled",
+      placeholder: "2019-11-30 00:00:00"
+    }
   ]
 };
 
