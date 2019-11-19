@@ -18,7 +18,6 @@ class Dashboard extends React.Component {
     yearToForecast: 2019,
     focusData: {},
     update: false,
-    creatOption: false,
     formData: {}
   };
 
@@ -69,8 +68,14 @@ class Dashboard extends React.Component {
 
   // Activates edit mode by changing state
   activateCreateMode = e => {
+    let typeToDetail = e.target.getAttribute("data-name");
+    console.log("data name: " + typeToDetail);
     this.setState({
-      update: true
+      update: true,
+      detail: {
+        type: typeToDetail,
+        id: false
+      }
     });
   };
   // // Activates edit mode by changing state
@@ -84,8 +89,7 @@ class Dashboard extends React.Component {
   // Activates edit mode by changing state
   deactivateEditMode = e => {
     this.setState({
-      update: false,
-      createOption: false
+      update: false
     });
   };
 
@@ -103,11 +107,27 @@ class Dashboard extends React.Component {
     });
   };
 
+  handleFormSubmit = e => {
+    let update = JSON.parse(e.target.getAttribute("data-id"));
+    console.log("data-id on form button: ", update);
+    if (update !== false) {
+      console.log("Update is true!");
+      this.handleUpdateSubmit(e);
+    } else {
+      console.log("Update is false!");
+
+      this.handleCreateSubmit(e);
+    }
+  };
+
   handleUpdateSubmit = e => {
     e.preventDefault();
     console.log(this.state.formData);
     switch (this.state.detail.type) {
       case "site":
+        // Parse int values required to be integer
+        this.state.formData.postcode = parseInt(this.state.formData.postcode);
+
         API.editSite(
           this.state.formData,
           e.target.getAttribute("data-id")
@@ -144,19 +164,21 @@ class Dashboard extends React.Component {
 
     switch (this.state.detail.type) {
       case "site":
+        this.state.formData.postcode = parseInt(this.state.formData.postcode);
+
         API.addSite(this.state.formData).then(data => {
           console.log(data);
           this.updateSiteInformationAndRender().then(this.deactivateEditMode);
         });
         break;
       case "equipment":
-        API.editEquipment(this.state.formData).then(data => {
+        API.addEquipment(this.state.formData).then(data => {
           console.log(data);
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
         break;
       case "maintenance_event":
-        API.editEquipment(this.state.formData).then(data => {
+        API.addEquipment(this.state.formData).then(data => {
           console.log(data);
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
@@ -257,6 +279,9 @@ class Dashboard extends React.Component {
         <div className="row">
           {/* Site navigation pane */}
           <div className="col-3">
+            <button data-name="site" onClick={this.activateCreateMode}>
+              New Site
+            </button>
             {/* For each site in state data, return a Site card */}
             {this.state.sites.map((val, index) => {
               return (
@@ -288,13 +313,14 @@ class Dashboard extends React.Component {
           this.state.update ? (
             <div className="col-9">
               {this.state.focusData.site_name}
-              <button onClick={this.deactivateEditMode}>Close Edit</button>
+              <button data-name="site" onClick={this.deactivateEditMode}>
+                Close Edit
+              </button>
               <Form
                 path={this.state.detail.type}
                 handleChange={this.handleFormChange}
-                handleFormSubmit={this.handleUpdateSubmit}
-                idToUpdate={this.state.detail.id || false}
-                createOption={this.state.createOption}
+                handleFormSubmit={this.handleFormSubmit}
+                idToUpdate={this.state.detail.id}
               />
             </div>
           ) : (

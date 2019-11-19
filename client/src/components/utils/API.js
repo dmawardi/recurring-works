@@ -21,7 +21,7 @@ const addEvent = eventObject => {
 };
 
 const addSite = siteObject => {
-  return axios.post("api/site/", siteObject);
+  return axios.post("api/sites/", siteObject);
 };
 
 const addEquipment = equipmentObject => {
