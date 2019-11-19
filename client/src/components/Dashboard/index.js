@@ -16,13 +16,13 @@ class Dashboard extends React.Component {
     currentSiteEvents: [],
     detail: false,
     yearToForecast: 2019,
-    currentSite: {},
+    focusData: {},
     update: false,
     formData: {}
   };
 
   findSiteNameFromId = idToSearch => {
-    console.log("Searching for ID: " + idToSearch);
+    console.log("Searching for site ID: " + idToSearch);
     console.log("Current site state: ", this.state.sites);
     for (let i = 0; i < this.state.sites.length; i++) {
       console.log("Currently checking out ID: " + this.state.sites[i].site_id);
@@ -33,10 +33,42 @@ class Dashboard extends React.Component {
     }
   };
 
+  findEquipmentDataFromId = idToSearch => {
+    console.log("Searching for equip ID: " + idToSearch);
+    console.log("Current equip state: ", this.state.currentSiteEquipment);
+    for (let i = 0; i < this.state.currentSiteEquipment.length; i++) {
+      if (
+        this.state.currentSiteEquipment[i].equipment_id === parseInt(idToSearch)
+      ) {
+        var result = this.state.currentSiteEquipment[i];
+        console.log("Found!", result);
+        return result;
+      }
+    }
+  };
+  findEventDataFromId = idToSearch => {
+    console.log("Searching for equip ID: " + idToSearch);
+    console.log("Current equip state: ", this.state.currentSiteEquipment);
+    for (let i = 0; i < this.state.currentSiteEvents.length; i++) {
+      if (this.state.currentSiteEvents[i].event_id === parseInt(idToSearch)) {
+        var result = this.state.currentSiteEvents[i];
+        console.log("Found!", result);
+        return result;
+      }
+    }
+  };
+
   // Activates edit mode by changing state
   activateEditMode = e => {
     this.setState({
       update: true
+    });
+  };
+
+  // Activates edit mode by changing state
+  deactivateEditMode = e => {
+    this.setState({
+      update: false
     });
   };
 
@@ -64,11 +96,7 @@ class Dashboard extends React.Component {
           e.target.getAttribute("data-id")
         ).then(data => {
           console.log(data);
-          this.updateSiteInformationAndRender().then(
-            this.setState({
-              update: false
-            })
-          );
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode);
         });
         break;
       case "equipment":
@@ -77,11 +105,7 @@ class Dashboard extends React.Component {
           e.target.getAttribute("data-id")
         ).then(data => {
           console.log(data);
-          this.updateSiteInformationAndRender().then(
-            this.setState({
-              update: false
-            })
-          );
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
     }
     // TODO place code here to account for different scenarios and form submissions
@@ -102,9 +126,9 @@ class Dashboard extends React.Component {
         this.setState({
           currentSiteEquipment: data.data.equipment,
           currentSiteEvents: data.data.events,
-          currentSite: focusSite
+          focusData: focusSite,
+          detail: false
         });
-        console.log("State: ", this.state);
       })
       .catch(err => {
         console.log(err);
@@ -128,31 +152,31 @@ class Dashboard extends React.Component {
     let typeToDetail = e.target.getAttribute("data-name");
     console.log("data id: " + idToDetail);
     console.log("data name: " + typeToDetail);
-    const focusSite = this.findSiteNameFromId(idToDetail);
+    const focusItem = this.retrieveDetailGivenCurrentState(
+      typeToDetail,
+      idToDetail
+    );
 
+    console.log("focusItem :  ", focusItem);
     this.setState({
       detail: {
         type: typeToDetail,
         id: idToDetail
       },
-      currentSite: focusSite
+      focusData: focusItem
     });
-    console.log(this.state);
   };
 
-  showDetailGivenCurrentState = () => {
-    switch (this.state.detail.type) {
+  retrieveDetailGivenCurrentState = (type, id) => {
+    switch (type) {
+      case "site":
+        return this.findSiteNameFromId(id);
       case "equipment":
-        for (let i = 0; i < this.state.currentSiteEquipment.length; i++) {
-          if (
-            this.state.currentSiteEquipment[i].site_id === this.state.detail.id
-          ) {
-            var result = this.state.currentSiteEquipment[i];
-            return result;
-          }
-        }
+        return this.findEquipmentDataFromId(id);
+      case "maintenance_event":
+        return this.findEventDataFromId(id);
       default:
-        return <></>;
+        return false;
     }
   };
 
@@ -204,7 +228,7 @@ class Dashboard extends React.Component {
             // Display the grid system
             <SiteGridView
               increaseDecreaseYear={this.increaseDecreaseYear}
-              currentSiteName={this.state.currentSite.site_name}
+              currentSiteName={this.state.focusData.site_name}
               yearToForecast={this.state.yearToForecast}
               currentSiteEvents={this.state.currentSiteEvents}
               currentSiteEquipment={this.state.currentSiteEquipment}
@@ -213,9 +237,10 @@ class Dashboard extends React.Component {
           ) : // If update mode activated
           this.state.update ? (
             <div className="col-9">
-              {this.state.currentSite.site_name}
+              {this.state.focusData.site_name}
+              <button onClick={this.deactivateEditMode}></button>
               <Form
-                path="site"
+                path={this.state.detail.type}
                 handleChange={this.handleFormChange}
                 handleFormSubmit={this.handleUpdateSubmit}
                 idToUpdate={this.state.detail.id}
@@ -226,8 +251,9 @@ class Dashboard extends React.Component {
             <>
               <DetailTable
                 clearDetail={this.clearDetail}
-                currentSite={this.state.currentSite}
+                focusData={this.state.focusData}
                 activateEditMode={this.activateEditMode}
+                detail={this.state.detail}
               />
             </>
           )}

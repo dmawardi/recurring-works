@@ -23,7 +23,7 @@ function SiteGridView(props) {
               <EquipmentDetailRow
                 key={index}
                 val={val}
-                onClick={props.selectDetail}
+                selectDetail={props.selectDetail}
                 eventData={props.currentSiteEvents}
                 yearToForecast={props.yearToForecast}
               />

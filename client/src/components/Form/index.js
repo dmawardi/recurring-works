@@ -167,6 +167,10 @@ function pathSpecificForm(path) {
       return accountForms.login;
     case "site":
       return accountForms.site;
+    case "equipment":
+      return accountForms.equipment;
+    case "maintenance_event":
+      return accountForms.maintenance_event;
     default:
       break;
   }

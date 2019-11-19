@@ -139,7 +139,7 @@ function EquipmentDetailRow(props) {
         scope="row"
         data-name="equipment"
         data-id={props.val.equipment_id}
-        onClick={props.onClick}
+        onClick={props.selectDetail}
       >
         {props.val.equipment_id}
       </th>
