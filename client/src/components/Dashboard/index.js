@@ -18,6 +18,7 @@ class Dashboard extends React.Component {
     yearToForecast: 2019,
     focusData: {},
     update: false,
+    creatOption: false,
     formData: {}
   };
 
@@ -46,6 +47,7 @@ class Dashboard extends React.Component {
       }
     }
   };
+
   findEventDataFromId = idToSearch => {
     console.log("Searching for event ID: " + idToSearch);
     console.log("Current event state: ", this.state.currentSiteEquipment);
@@ -66,9 +68,24 @@ class Dashboard extends React.Component {
   };
 
   // Activates edit mode by changing state
+  activateCreateMode = e => {
+    this.setState({
+      update: true
+    });
+  };
+  // // Activates edit mode by changing state
+  // deactivateCreateMode = e => {
+  //   this.setState({
+  //     createOption: false,
+  //     update: false
+  //   });
+  // };
+
+  // Activates edit mode by changing state
   deactivateEditMode = e => {
     this.setState({
-      update: false
+      update: false,
+      createOption: false
     });
   };
 
@@ -107,11 +124,44 @@ class Dashboard extends React.Component {
           console.log(data);
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
+        break;
+      case "maintenance_event":
+        API.editEvent(
+          this.state.formData,
+          e.target.getAttribute("data-id")
+        ).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode());
+        });
+        break;
     }
-    // TODO place code here to account for different scenarios and form submissions
-    // userFunctions.register(formData).then(res => {
-    //   console.log("Registered a New Account", res);
-    // });
+  };
+
+  handleCreateSubmit = e => {
+    e.preventDefault();
+    console.log("form data: ", this.state.formData);
+    console.log("Current Detail: ", this.state.detail);
+
+    switch (this.state.detail.type) {
+      case "site":
+        API.addSite(this.state.formData).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode);
+        });
+        break;
+      case "equipment":
+        API.editEquipment(this.state.formData).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode());
+        });
+        break;
+      case "maintenance_event":
+        API.editEquipment(this.state.formData).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode());
+        });
+        break;
+    }
   };
 
   updateSiteEquipmentDisplayGrid = e => {
@@ -243,7 +293,8 @@ class Dashboard extends React.Component {
                 path={this.state.detail.type}
                 handleChange={this.handleFormChange}
                 handleFormSubmit={this.handleUpdateSubmit}
-                idToUpdate={this.state.detail.id}
+                idToUpdate={this.state.detail.id || false}
+                createOption={this.state.createOption}
               />
             </div>
           ) : (

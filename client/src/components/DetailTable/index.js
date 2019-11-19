@@ -24,7 +24,7 @@ const eventStructure = [
   "datetime_scheduled"
 ];
 
-// return identifier for title data dependent on detail type
+// return identifier for label dependent on detail type
 function keyBasedOffDetail(detail) {
   switch (detail.type) {
     case "site":
@@ -59,8 +59,6 @@ function DetailTable(props) {
       <div className="card grid-header">
         <div className="card-body">
           <h5 className="card-title">
-            {/* Type of Item */}
-
             {/* Label of item */}
             {props.focusData[keyBasedOffDetail(props.detail)]}
           </h5>

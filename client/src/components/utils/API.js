@@ -12,6 +12,22 @@ const editEquipment = (equipmentObject, idToUpdate) => {
   return axios.put("api/equipment/" + idToUpdate, equipmentObject);
 };
 
+const editEvent = (equipmentObject, idToUpdate) => {
+  return axios.put("api/event/" + idToUpdate, equipmentObject);
+};
+
+const addEvent = eventObject => {
+  return axios.post("api/event/", eventObject);
+};
+
+const addSite = siteObject => {
+  return axios.post("api/site/", siteObject);
+};
+
+const addEquipment = equipmentObject => {
+  return axios.post("api/equipment/", equipmentObject);
+};
+
 // const logOut = user => {
 //   return axios
 //     .get("account/logout", {
@@ -30,5 +46,9 @@ const editEquipment = (equipmentObject, idToUpdate) => {
 export default {
   findAllSites: findAllSites,
   editSite: editSite,
-  editEquipment: editEquipment
+  editEquipment: editEquipment,
+  addSite: addSite,
+  addEquipment: addEquipment,
+  addEvent: addEvent,
+  editEvent: editEvent
 };

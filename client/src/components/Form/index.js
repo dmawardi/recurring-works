@@ -176,20 +176,6 @@ function pathSpecificForm(path) {
   }
 }
 
-// return identifier for data label dependent on detail type
-function labelBasedOffDetail(path) {
-  switch (path) {
-    case "site":
-      return "Site Form";
-    case "equipment":
-      return "Equipment Form";
-    case "maintenance_event":
-      return "Event Form";
-    default:
-      return "";
-  }
-}
-
 // TODO: Use previous site data to update record
 // function dataToUseIfRequired(path, state) {
 //   switch (path) {
@@ -205,26 +191,24 @@ function labelBasedOffDetail(path) {
 
 function Form(props) {
   return (
-    <>
-      <form>
-        <FormGroup
-          //   Using the current React path, determine form to show
-          formData={pathSpecificForm(props.path)}
-          handleChange={props.handleChange}
-        />
+    <form>
+      <FormGroup
+        //   Using the current React path, determine form to show
+        formData={pathSpecificForm(props.path)}
+        handleChange={props.handleChange}
+      />
 
-        <div>
-          <button
-            onClick={props.handleFormSubmit}
-            type="submit"
-            className="btn btn-primary"
-            data-id={props.idToUpdate}
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    </>
+      <div>
+        <button
+          onClick={props.handleFormSubmit}
+          type="submit"
+          className="btn btn-primary"
+          data-id={props.idToUpdate}
+        >
+          Submit
+        </button>
+      </div>
+    </form>
   );
 }
 
