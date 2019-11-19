@@ -47,8 +47,8 @@ class Dashboard extends React.Component {
     }
   };
   findEventDataFromId = idToSearch => {
-    console.log("Searching for equip ID: " + idToSearch);
-    console.log("Current equip state: ", this.state.currentSiteEquipment);
+    console.log("Searching for event ID: " + idToSearch);
+    console.log("Current event state: ", this.state.currentSiteEquipment);
     for (let i = 0; i < this.state.currentSiteEvents.length; i++) {
       if (this.state.currentSiteEvents[i].event_id === parseInt(idToSearch)) {
         var result = this.state.currentSiteEvents[i];
@@ -238,7 +238,7 @@ class Dashboard extends React.Component {
           this.state.update ? (
             <div className="col-9">
               {this.state.focusData.site_name}
-              <button onClick={this.deactivateEditMode}></button>
+              <button onClick={this.deactivateEditMode}>Close Edit</button>
               <Form
                 path={this.state.detail.type}
                 handleChange={this.handleFormChange}

@@ -6,27 +6,32 @@ const legend = [
   {
     scheduledEvent: true,
     numberOfEvents: 1,
-    status: "good"
+    status: "good",
+    event_id: false
   },
   {
     scheduledEvent: true,
     numberOfEvents: 1,
-    status: "caution"
+    status: "caution",
+    event_id: false
   },
   {
     scheduledEvent: true,
     numberOfEvents: 1,
-    status: "alert"
+    status: "alert",
+    event_id: false
   },
   {
     scheduledEvent: true,
     numberOfEvents: 1,
-    status: "unknown"
+    status: "unknown",
+    event_id: false
   },
   {
     scheduledEvent: false,
     numberOfEvents: 1,
-    status: false
+    status: false,
+    event_id: false
   }
 ];
 
@@ -60,7 +65,7 @@ function GridHeader(props) {
             {legend.map((data, i) => {
               return (
                 <div className="col-3 legend-box">
-                  {StatusSquare(data)}
+                  <StatusSquare squareState={data} />
                   <p>
                     <span className="legend-label">{legendLabels[i]}</span>
                   </p>

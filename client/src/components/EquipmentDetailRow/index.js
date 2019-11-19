@@ -33,7 +33,8 @@ function forecastFutureMonthlyEventColumns(
       listOfMaintenanceEventDates.push({
         date_scheduled: lastMaintenanceDate.toString(),
         scheduled: true,
-        status: eventData[i].status_of_maintenance || false
+        status: eventData[i].status_of_maintenance || false,
+        event_id: eventData[i].event_id
       });
     }
   }
@@ -91,6 +92,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     let scheduledEvent = false;
     let status = false;
     var result = {};
+    var foundEventId;
 
     // Iterate through list of maintenance event dates checking if there's a match with the current month we are checking
     for (let i = 0; i < listOfMaintenanceEventDates.length; i++) {
@@ -110,13 +112,15 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
           // Set scheduled event to true and record status
           scheduledEvent = true;
           status = listOfMaintenanceEventDates[i].status;
+          foundEventId = listOfMaintenanceEventDates[i].event_id;
         }
       }
       // Create record
       result = {
         numberOfEvents: numberOfEvents,
         scheduledEvent: scheduledEvent,
-        status: status
+        status: status,
+        foundEventId: foundEventId
       };
     }
     // Reset results
@@ -127,6 +131,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     scheduledEvent = false;
     status = false;
     result = {};
+    foundEventId = false;
   }
   console.log("Month square format: ", monthSquareFormat);
   return monthSquareFormat;
@@ -155,7 +160,12 @@ function EquipmentDetailRow(props) {
         ),
         props.yearToForecast
       ).map(val => {
-        return <td>{StatusSquare(val)}</td>;
+        console.log(val);
+        return (
+          <td>
+            <StatusSquare squareState={val} detailClick={props.selectDetail} />
+          </td>
+        );
       })}
     </tr>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 function StatusSquare(props) {
-  // console.log("Square props: ", props);
+  console.log("Square props: ", props);
   // Creates square based on monthSquareFormat
 
   // Assign base square CSS class to class to use
@@ -10,14 +10,14 @@ function StatusSquare(props) {
   // init string with classes to add
   let classToAdd = "";
   // If an event is found at the month
-  if (props.numberOfEvents > 0) {
+  if (props.squareState.numberOfEvents > 0) {
     // Add class of white to make square white
     classToAdd = " white";
   }
   // If the current square is a scheduled event
-  if (props.scheduledEvent) {
+  if (props.squareState.scheduledEvent) {
     // status of current square
-    switch (props.status) {
+    switch (props.squareState.status) {
       // if good, make green
       case "good":
         classToAdd = " green";
@@ -41,9 +41,29 @@ function StatusSquare(props) {
   let squareClass = classToUse + classToAdd;
 
   // Build display square
-  let squareReturn = <div className={squareClass}></div>;
-
-  return squareReturn;
+  console.log(
+    "props.squareState.foundEventId: " + props.squareState.foundEventId
+  );
+  // If it was a scheduled event, wrap it in a button that provides detail
+  if (props.squareState.foundEventId) {
+    console.log("found event id of square found!!!!!!!!!");
+    return (
+      <button
+        onClick={props.detailClick}
+        data-id={props.squareState.foundEventId.toString()}
+        data-name="maintenance_event"
+      >
+        <div
+          data-id={props.squareState.foundEventId.toString()}
+          data-name="maintenance_event"
+          className={squareClass}
+        ></div>
+      </button>
+    );
+    // Else make a standard square
+  } else {
+    return <div className={squareClass}></div>;
+  }
 }
 
 export default StatusSquare;
