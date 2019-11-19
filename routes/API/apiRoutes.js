@@ -38,8 +38,11 @@ router.get("/sites/:idToFind", (req, res) => {
 router.post("/sites", (req, res) => {
   console.log("Hitting Create Sites");
   console.log("req:", req.body);
+  let userID = req.user.user_id;
+  let data = req.body;
+  data.user_id = userID;
   //   res.json(req.body);
-  Site.create(req.body)
+  Site.create(data)
     .then(data => {
       res.sendStatus(200);
     })
