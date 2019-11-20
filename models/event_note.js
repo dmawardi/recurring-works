@@ -1,10 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  // validate: {
-  //   len: {
-  //     args: [1, 140],
-  //     message: "Must have length greater than 1"
-  //   }
-  // }
+  // Assign to variable a sequelize definition of table: event notes
   var event_note = sequelize.define("event_note", {
     // Giving the Author model a name of type STRING
     note_id: {
@@ -26,9 +21,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  // Associate event notes with events and users
   event_note.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
     event_note.belongsTo(models.maintenance_event, {
       foreignKey: "event_id"
     });

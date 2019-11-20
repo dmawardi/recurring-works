@@ -14,15 +14,14 @@ import {
   Redirect
 } from "react-router-dom";
 
-// , { useState, useEffect }
-
+// React Hook component
 function Interface(props) {
-  var [isLoggedIn, setIsLoggedIn] = useState(false);
+  // React Hook variables
   var [formData, setFormData] = useState({});
-  var [userMessage, setuserMessage] = useState();
   var [userProfile, setUserProfile] = useState({});
   var [siteData, setSiteData] = useState();
 
+  // log out function
   const logOut = e => {
     e.preventDefault();
     console.log("logging out");
@@ -31,44 +30,36 @@ function Interface(props) {
       console.log("Current login state:", userProfile);
       if (res.status === 200) {
         console.log("status 200 detected!");
-        setUserProfile({});
-        setIsLoggedIn(false);
+        setUserProfile(false);
       } else {
         console.log("Failure detected");
       }
     });
   };
 
+  // Handle form change for login
   const handleFormChange = e => {
     e.preventDefault();
+    // Extract values from event
     var name = e.target.name;
     let value = e.target.value;
+    // Copy current form data for appending
     let temporaryState = formData;
-    console.log("Name: " + e.target.name);
-    console.log("Value: " + e.target.value);
+
+    // Create new value within temporary state
     temporaryState[name] = value;
     // console.log("temp state: ", temporaryState);
     setFormData(temporaryState);
   };
 
+  // Handle login submission
   const handleLoginSubmit = e => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     userFunctions
       .login(formData)
       .then(res => {
-        console.log("Received login response: ", res);
-        console.log("User Id: " + res.data.user_id);
         setUserProfile(res.data);
-
-        console.log("Current Profile: ", userProfile);
-        // if (res.data.message) {
-        //   console.log("Message: ", res.data.message);
-        //   setIsLoggedIn(true);
-        //   setUserProfile(res.data.profile);
-        // } else {
-        //   console.log("Error", res.data.error);
-        // }
       })
       .catch(err => {
         console.error(err);
@@ -78,24 +69,13 @@ function Interface(props) {
   const handleRegisterSubmit = e => {
     e.preventDefault();
     console.log(formData);
-    userFunctions.register(formData).then(res => {
-      console.log("Registered a New Account", res);
-    });
-  };
-
-  const printStats = e => {
-    console.log("user profile: ", userProfile);
-    console.log("site data: ", siteData);
-
-    // API.findAllSites().then(res => {
-    //   console.log(res);
-    // });
+    userFunctions.register(formData).then(res => {});
   };
 
   return (
     <>
       <Router>
-        <NavBar profile={userProfile} printStats={printStats} logOut={logOut} />
+        <NavBar profile={userProfile} logOut={logOut} />
         <Switch>
           {/* Landing Page */}
           <Route exact path="/" component={Landing} />

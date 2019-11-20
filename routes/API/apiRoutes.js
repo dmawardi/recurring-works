@@ -9,8 +9,7 @@ const Vendor = require("../../controller/vendor");
 // Below routes match with "/api/sites/*"
 // Find all
 router.get("/sites", (req, res) => {
-  console.log("Hitting Sites");
-  console.log("user: ", req.user.user_id);
+  console.log("Access to sites provided to user: ", req.user.user_id);
   Site.findByUserID(req.user.user_id)
     .then(data => {
       res.json(data);
@@ -89,7 +88,7 @@ router.delete("/sites/:idToDelete", (req, res) => {
 });
 
 // Below routes match with "/api/equipment/*"
-// Return all
+// Return all equipment
 router.get("/equipment", function(req, res) {
   console.log("Hitting Equipment! User ID: " + req.user.user_id);
 
@@ -156,7 +155,7 @@ router.get("/equipment/:idToFind", (req, res) => {
     });
 });
 
-// find by id
+// find equipment by site id
 router.get("/siteequipment/:idToFind", (req, res) => {
   console.log("Hitting equipment by site!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   const idToFind = req.params.idToFind;

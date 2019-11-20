@@ -3,24 +3,21 @@ const db = require("../models");
 const Vendor = {
   // Create a new record using
   create: data => {
-    console.log("Creating");
     return db.vendor.create(data);
   },
   // Find all sorted by date
   findAll: () => {
-    console.log("Finding all");
     return db.vendor.findAll();
-    // .sort({ date: -1 });
   },
-  // Find all sorted by date
+  // Find by ID
   findByID: idToFind => {
     return db.vendor.findAll({
       where: {
         vendor_id: idToFind
       }
     });
-    // .sort({ date: -1 });
   },
+  // Delete by ID
   delete: idToDelete => {
     return db.vendor.destroy({
       where: {
@@ -28,6 +25,7 @@ const Vendor = {
       }
     });
   },
+  // Update by ID
   update: (idToUpdate, data) => {
     return db.vendor.update(data, {
       where: {

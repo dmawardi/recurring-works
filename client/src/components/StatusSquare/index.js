@@ -1,10 +1,8 @@
 import React from "react";
 import "./style.css";
 
+// Creates square based on monthSquareFormat
 function StatusSquare(props) {
-  console.log("Square props: ", props);
-  // Creates square based on monthSquareFormat
-
   // Assign base square CSS class to class to use
   let classToUse = "square";
   // init string with classes to add
@@ -44,9 +42,8 @@ function StatusSquare(props) {
   console.log(
     "props.squareState.foundEventId: " + props.squareState.foundEventId
   );
-  // If it was a scheduled event, wrap it in a button that provides detail
+  // If it was a scheduled event, wrap it in a button that provides detail for update/creation
   if (props.squareState.foundEventId) {
-    console.log("found event id of square found!!!!!!!!!");
     return (
       <button
         onClick={props.detailClick}

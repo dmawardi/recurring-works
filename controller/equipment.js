@@ -19,8 +19,6 @@ const Equipment = {
         equipment_id: idToFind
       }
     });
-
-    // .sort({ date: -1 });
   },
   // Find all equipment by site
   findBySite: idToFind => {
@@ -30,6 +28,7 @@ const Equipment = {
       }
     });
   },
+  // Delete using id
   delete: idToDelete => {
     return db.equipment.destroy({
       where: {
@@ -37,6 +36,7 @@ const Equipment = {
       }
     });
   },
+  // Update using id
   update: (idToUpdate, data) => {
     return db.equipment.update(data, {
       where: {

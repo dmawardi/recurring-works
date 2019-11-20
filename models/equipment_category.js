@@ -1,12 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-  // validate: {
-  //   len: {
-  //     args: [1, 140],
-  //     message: "Must have length greater than 1"
-  //   }
-  // }
+  // Assign to variable a sequelize definition of table: equipment category
   var equipment_category = sequelize.define("equipment_category", {
-    // Giving the Author model a name of type STRING
+    //Define fields
     category_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  // Associate with equipment table
   equipment_category.associate = function(models) {
     equipment_category.hasMany(models.equipment, {
       foreignKey: "category_id"

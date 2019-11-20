@@ -133,17 +133,13 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     result = {};
     foundEventId = false;
   }
-  console.log("Month square format: ", monthSquareFormat);
   return monthSquareFormat;
 }
 
 // Functional component
 function EquipmentDetailRow(props) {
-  // console.log(props);
   // Render Row
   return (
-    // props.currentSiteId
-    // If the equipment is associated with the current site
     <tr key={props.equipment_id}>
       {/* Table header */}
       <th
@@ -177,7 +173,7 @@ function EquipmentDetailRow(props) {
         // Map through resulting values
       ).map(val => {
         console.log(val);
-        // Generate a square for each month's value
+        // Generate a square for each month's value as a table data element
         return (
           <td>
             <StatusSquare squareState={val} detailClick={props.selectDetail} />

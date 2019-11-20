@@ -2,6 +2,7 @@ import React from "react";
 import StatusSquare from "../StatusSquare";
 import "./style.css";
 
+// Generate sample of event color codes using object format
 const legend = [
   {
     scheduledEvent: true,
@@ -35,6 +36,7 @@ const legend = [
   }
 ];
 
+// Array of legend labels
 const legendLabels = [
   "Status: Good",
   "Status: Caution",
@@ -43,14 +45,19 @@ const legendLabels = [
   "Status: Due. Not scheduled Yet"
 ];
 
+// Functional component
 function GridHeader(props) {
   return (
+    // Grid header
     <div className="card grid-header">
       <div className="card-body">
+        {/* Site title */}
         <h5 className="card-title">{props.currentSiteName}</h5>
+        {/* Year */}
         <h6 className="card-subtitle mb-2 text-muted">
           Year:{props.yearToForecast}
         </h6>
+        {/* Year manipulation buttons */}
         <button onClick={props.increaseDecreaseYear} data-name="-">
           -
         </button>
@@ -75,8 +82,8 @@ function GridHeader(props) {
             })}
           </div>
           <div className="container">
-            <div className="col-2 legend-box">
-              {/* name and id used to customize form by updating state variable detail */}
+            <div className="col-2">
+              {/* Add new equipment button */}
               <button data-name="equipment" onClick={props.activateCreateMode}>
                 Add New Equipment
               </button>

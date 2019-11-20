@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 
 // Init account forms object containing form structures
 var accountForms = {
+  // Login input data
   login: [
     {
       nameFor: "email",
@@ -19,6 +20,7 @@ var accountForms = {
       placeholder: "Password"
     }
   ],
+  // Register input data
   register: [
     {
       nameFor: "email",
@@ -51,6 +53,7 @@ var accountForms = {
       placeholder: "Password"
     }
   ],
+  // Site input data
   site: [
     {
       nameFor: "site_name",
@@ -95,6 +98,7 @@ var accountForms = {
       placeholder: "USA"
     }
   ],
+  // Equipment input data
   equipment: [
     {
       nameFor: "equipment_name",
@@ -139,6 +143,7 @@ var accountForms = {
       placeholder: "3"
     }
   ],
+  // Maintenance event input data
   maintenance_event: [
     {
       nameFor: "status_of_maintenance",

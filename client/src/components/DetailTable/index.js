@@ -67,7 +67,7 @@ function DetailTable(props) {
   console.log("Detail table props", props);
 
   return (
-    // Column 9
+    // Column size 9 to render detail table
     <div className="col-9 detail-table">
       <div className="card grid-header">
         <div className="card-body">
@@ -93,6 +93,7 @@ function DetailTable(props) {
 
       {/* Data table */}
       <table className="table table-bordered table-dark">
+        {/* Header row */}
         <thead>
           <tr>
             <th scope="col">Detail</th>
@@ -102,12 +103,8 @@ function DetailTable(props) {
           </tr>
         </thead>
         <tbody>
-          {/* Generate Key Value pairs here */}
+          {/* Generate Key Value pairs here using detail props */}
           {dataToDisplay(props.detail).map((val, i) => {
-            console.log("focusData is : ", props.focusData);
-            console.log("key value is :", val);
-
-            console.log("at index :", i);
             // Build table row using table keys stored in siteStructure
             return (
               <tr>

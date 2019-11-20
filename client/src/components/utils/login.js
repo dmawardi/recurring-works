@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Register API call
 const register = newUser => {
   return axios.post("account/register", {
     firstName: newUser.firstName,
@@ -10,6 +11,7 @@ const register = newUser => {
   });
 };
 
+// Login API call
 const login = user => {
   return axios.post("account/login", {
     email: user.email,
@@ -17,6 +19,7 @@ const login = user => {
   });
 };
 
+// Logout api call
 const logOut = user => {
   return axios.get("account/logout");
 };

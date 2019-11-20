@@ -1,12 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-  // validate: {
-  //   len: {
-  //     args: [1, 140],
-  //     message: "Must have length greater than 1"
-  //   }
-  // }
+  // Assign to variable a sequelize definition of table: equipment category
   var user = sequelize.define("user", {
-    // Giving the Author model a name of type STRING
+    // Define fields
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -37,10 +32,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-
-  // user.associate = models => {
-  //   user.hasMany(models.site);
-  // };
-
   return user;
 };

@@ -4,22 +4,26 @@ import TableHeader from "../TableHeader";
 import EquipmentDetailRow from "../EquipmentDetailRow";
 import "./style.css";
 
+// Functional component of site grid view table
 function SiteGridView(props) {
   return (
+    // Column of size 9
     <div className="col-9">
+      {/* Grid header */}
       <GridHeader
         increaseDecreaseYear={props.increaseDecreaseYear}
         currentSiteName={props.currentSiteName}
         yearToForecast={props.yearToForecast}
         activateCreateMode={props.activateCreateMode}
       />
-
+      {/* Table header */}
       <table className="table table-responsive table-sm table-dark">
         <TableHeader />
 
+        {/* Table body */}
         <tbody>
+          {/* Iterate through the current site equipment and form detail */}
           {props.currentSiteEquipment.map((val, index) => {
-            console.log("vali is: ", val);
             return (
               <EquipmentDetailRow
                 key={index}

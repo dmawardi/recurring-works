@@ -1,12 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-  // validate: {
-  //   len: {
-  //     args: [1, 140],
-  //     message: "Must have length greater than 1"
-  //   }
-  // }
+  // Assign to variable a sequelize definition of table: maintenance event
   var maintenance_event = sequelize.define("maintenance_event", {
-    // Giving the Author model a name of type STRING
+    // Define fields
     event_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -37,13 +32,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  // Associate maintenance event with equipment and vendors
   maintenance_event.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
-    // maintenance_event.hasMany(models.event_note, {
-    //   onDelete: "cascade"
-    // });
-
     maintenance_event.belongsTo(models.equipment, {
       foreignKey: "equipment_id"
     });

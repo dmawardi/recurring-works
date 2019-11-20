@@ -2,42 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../controller/user");
 // // Encryption package
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const passport = require("passport");
-// const flash = require("express-flash");
-// const session = require("express-session");
-
-// router.use(flash());
-// router.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false
-//   })
-// );
-// router.use(passport.initialize());
-// router.use(passport.session());
-
-// const initializePassport = require("../controller/passport-config");
-// initializePassport(passport);
-
-// Passport setup
-// const passport = require("passport");
-// // Encryption package
-// const flash = require("express-flash");
-// const session = require("express-session");
-// app.use(
-//     session({
-//       secret: process.env.SESSION_SECRET,
-//       resave: false,
-//       saveUninitialized: false
-//     })
-//   );
-//   app.use(passport.initialize());
-//   app.use(passport.session());
-
-// Check if needed
-// router.use(cors());
 
 // Register POST route
 router.post("/register", async function(req, res) {
@@ -59,18 +25,16 @@ router.post("/register", async function(req, res) {
       res.json({ message: "Success! Your account has been registered." });
 
       // Send user to login screen to login
-      // res.redirect("/login");
     })
     .catch(err => {
       const message =
         "Failed to create new account: Error msg: " + err.errors[0].message;
       console.error(message);
-      // res.json({error: "User already exists."});
       res.send("error: " + err);
     });
 });
 
-// Login POST route
+// Post route to login
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -101,10 +65,11 @@ router.post(
   }
 );
 
+// Route for user to logout
 router.get("/logout", (req, res) => {
   console.log("User authenticated? ", req.isAuthenticated());
   req.logOut();
-  console.log("User authenticated? ", req.isAuthenticated());
+  // console.log("User authenticated? ", req.isAuthenticated());
 
   res.sendStatus(200);
 });

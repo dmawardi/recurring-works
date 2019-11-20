@@ -5,29 +5,28 @@ const Site = {
   create: data => {
     return db.site.create(data);
   },
-  // Find all sorted by date
+  // Find all
   findAll: () => {
     console.log("Finding all");
     return db.site.findAll();
-    // .sort({ date: -1 });
   },
-  // Find all sorted by date
+  // Find by site id
   findByID: idToFind => {
     return db.site.findAll({
       where: {
         site_id: idToFind
       }
     });
-    // .sort({ date: -1 });
   },
+  // Find by User id
   findByUserID: idToFind => {
     return db.site.findAll({
       where: {
         user_id: idToFind
       }
     });
-    // .sort({ date: -1 });
   },
+  // Delete by ID
   delete: idToDelete => {
     return db.site.destroy({
       where: {
@@ -35,6 +34,7 @@ const Site = {
       }
     });
   },
+  // Update by id
   update: (idToUpdate, data) => {
     return db.site.update(data, {
       where: {

@@ -18,8 +18,8 @@ const Note = {
         note_id: idToFind
       }
     });
-    // .sort({ date: -1 });
   },
+  // Delete using ID
   delete: idToDelete => {
     return db.event_note.destroy({
       where: {
@@ -27,6 +27,7 @@ const Note = {
       }
     });
   },
+  // Update using ID
   update: (idToUpdate, data) => {
     return db.event_note.update(data, {
       where: {

@@ -357,9 +357,11 @@ class Dashboard extends React.Component {
     console.log(this.state);
   };
 
+  // Event handler for creating a new event
   addNewEvent = e => {
+    // Ensure that the equipment to update is recorded
     let equipmentIdToUse = e.target.getAttribute("data-id");
-    console.log("Adding new event for equipment id: " + equipmentIdToUse);
+    // Update state with id to use
     this.setState({
       currentlyInFocusEquipmentId: equipmentIdToUse
     });
@@ -369,19 +371,22 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      // Dashboard container
+      <div className="container-fluid">
         <div className="row">
           {/* Site navigation pane */}
           <div className="col-3">
+            {/* Button to create new site */}
             <button data-name="site" onClick={this.activateCreateMode}>
               New Site
             </button>
-            <button data-name="site" onClick={this.printState}>
+            {/* <button data-name="site" onClick={this.printState}>
               Print State
-            </button>
+            </button> */}
             {/* For each site in state data, return a Site card */}
             {this.state.sites.map((val, index) => {
               return (
+                // Return site card containing brief information and links
                 <SiteCard
                   key={index}
                   site_id={val.site_id}
@@ -397,7 +402,7 @@ class Dashboard extends React.Component {
           </div>
           {/* If there is no current detail in focus */}
           {!this.state.detail ? (
-            // Display the grid system
+            // Display the site grid system
             <SiteGridView
               increaseDecreaseYear={this.increaseDecreaseYear}
               currentSiteName={this.state.focusData.site_name}
@@ -413,10 +418,11 @@ class Dashboard extends React.Component {
           this.state.update ? (
             // show column with form
             <div className="col-9">
+              {/* Place site information  at top */}
               {this.state.focusData.site_name}
-              <button data-name="site" onClick={this.deactivateEditMode}>
-                Close Edit
-              </button>
+              {/* Button to deactivate edit mode */}
+              <button onClick={this.deactivateEditMode}>Close Edit</button>
+              {/* Form */}
               <Form
                 path={this.state.detail.type}
                 handleChange={this.handleFormChange}

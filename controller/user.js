@@ -7,27 +7,25 @@ const User = {
   },
   // Find all sorted by date
   findAll: () => {
-    console.log("Finding all");
     return db.user.findAll();
-    // .sort({ date: -1 });
   },
-  // Find all sorted by date
+  // Find by ID
   findByID: idToFind => {
     return db.user.findAll({
       where: {
         user_id: idToFind
       }
     });
-    // .sort({ date: -1 });
   },
+  // Find using email
   findByEmail: emailToFind => {
     return db.user.findAll({
       where: {
         email: emailToFind
       }
     });
-    // .sort({ date: -1 });
   },
+  // Delete by ID
   delete: idToDelete => {
     return db.user.destroy({
       where: {
@@ -35,6 +33,7 @@ const User = {
       }
     });
   },
+  // Update by ID
   update: (idToUpdate, data) => {
     return db.user.update(data, {
       where: {

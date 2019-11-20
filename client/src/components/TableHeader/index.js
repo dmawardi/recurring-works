@@ -1,8 +1,10 @@
 import React from "react";
 import "./style.css";
 
+// Functional Component
 function TableHeader() {
   return (
+    // Headers for grid table
     <thead>
       <tr>
         <th scope="col">Equipment ID</th>

@@ -19,16 +19,15 @@ const Event = {
         event_id: idToFind
       }
     });
-    // .sort({ date: -1 });
   },
-  // Find all sorted by date
+  // Find all including associated events
   findAllIncluding: () => {
     console.log("Finding all");
     return db.maintenance_event.findAll({
       include: [{ model: db.equipment }]
     });
-    // .sort({ date: -1 });
   },
+  // Delete
   delete: idToDelete => {
     return db.maintenance_event.destroy({
       where: {
@@ -36,6 +35,7 @@ const Event = {
       }
     });
   },
+  // Update using ID
   update: (idToUpdate, data) => {
     return db.maintenance_event.update(data, {
       where: {
@@ -44,16 +44,5 @@ const Event = {
     });
   }
 };
-
-// Event.findAllIncluding()
-//   .then(data => {
-//     console.log("event info: " + data);
-//     // for (let i = 0; i < data.length; i++) {
-//     //   console.log("equip info: " + data[i].dataValues.equipment);
-//     // }
-//   })
-//   .catch(err => {
-//     console.error(err);
-//   });
 
 module.exports = Event;

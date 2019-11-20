@@ -1,12 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-  // validate: {
-  //   len: {
-  //     args: [1, 140],
-  //     message: "Must have length greater than 1"
-  //   }
-  // }
+  // Assign to variable a sequelize definition of table: site
   var site = sequelize.define("site", {
-    // Giving the Author model a name of type STRING
+    // Define fields
     site_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -38,22 +33,12 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  // Associate sites with user
   site.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
     site.belongsTo(models.user, {
       foreignKey: "user_id"
     });
   };
-
-  // site.associate = models => {
-  //   // site.hasMany(models.equipment, {
-  //   //   onDelete: "cascade"
-  //   // });
-  //   // site.belongsTo(models.equipment_category, {
-  //   //   foreignKey: "category_id"
-  //   // });
-  // };
 
   return site;
 };

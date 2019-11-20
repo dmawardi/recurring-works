@@ -1,12 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-  // validate: {
-  //   len: {
-  //     args: [1, 140],
-  //     message: "Must have length greater than 1"
-  //   }
-  // }
+  // Assign to variable a sequelize definition of table: equipment
   var equipment = sequelize.define("equipment", {
-    // Giving the Author model a name of type STRING
+    // Define fields
     equipment_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -60,9 +55,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  // Associate equipment with sites and categories
   equipment.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
     equipment.belongsTo(models.site, {
       foreignKey: "site_id"
     });
@@ -72,15 +66,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       foreignKey: "category_id"
-      // references: {
-      //   model: "equipment_category",
-      //   key: "category_id"
-      // }
     });
-
-    // equipment.hasMany(models.maintenance_event, {
-    //   onDelete: "cascade"
-    // });
   };
 
   return equipment;
