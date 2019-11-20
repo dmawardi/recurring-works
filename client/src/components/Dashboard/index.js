@@ -276,7 +276,9 @@ class Dashboard extends React.Component {
     return axios.get("/api/sites").then(data => {
       // Set sites variable
       this.setState({
-        sites: data.data
+        sites: data.data,
+        currentSiteEquipment: [],
+        currentSiteEvents: []
       });
     });
   }
@@ -369,10 +371,26 @@ class Dashboard extends React.Component {
     this.activateCreateMode(e);
   };
 
+  // Delete item event handler
   deleteItem = e => {
     let name = e.target.getAttribute("data-name");
     let idToDelete = e.target.getAttribute("data-id");
     console.log("Deleting " + name + " of id: " + idToDelete);
+
+    switch (name) {
+      case "equipment":
+        API.deleteEquipment(idToDelete).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender();
+        });
+        break;
+      case "site":
+        API.deleteSite(idToDelete).then(data => {
+          console.log(data);
+          this.updateSiteInformationAndRender().then(this.deactivateEditMode());
+        });
+        break;
+    }
   };
 
   render() {

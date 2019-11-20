@@ -41,6 +41,16 @@ const addEquipment = equipmentObject => {
   return axios.post("api/equipment/", equipmentObject);
 };
 
+// Delete equipment
+const deleteEquipment = idToDelete => {
+  return axios.delete("api/equipment/" + idToDelete);
+};
+
+// Delete site
+const deleteSite = idToDelete => {
+  return axios.delete("api/sites/" + idToDelete);
+};
+
 export default {
   findAllSites: findAllSites,
   editSite: editSite,
@@ -49,5 +59,7 @@ export default {
   addEquipment: addEquipment,
   addEvent: addEvent,
   editEvent: editEvent,
-  findEquipmentBySiteId: findEquipmentBySiteId
+  findEquipmentBySiteId: findEquipmentBySiteId,
+  deleteSite: deleteSite,
+  deleteEquipment: deleteEquipment
 };

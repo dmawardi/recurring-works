@@ -79,7 +79,7 @@ function NavBar(props) {
       </ul>
 
       {/* Login Portion */}
-      {props.profile ? userLink : loginRegLink}
+      {props.profile.user_id ? userLink : loginRegLink}
 
       <div></div>
     </nav>

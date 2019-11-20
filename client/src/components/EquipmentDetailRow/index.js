@@ -154,7 +154,7 @@ function EquipmentDetailRow(props) {
       </th>
       {/* Equipment Name */}
       <td>
-        {props.val.equipment_name}
+        <p>{props.val.equipment_name}</p>
         {/* Delete button */}
         <button
           onClick={props.delete}
