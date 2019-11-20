@@ -38,9 +38,7 @@ function NavBar(props) {
         </Link>
       </li>
       <li className="nav-item">
-        <Link to="/register" onClick={logOut} className="nav-link">
-          Log Out
-        </Link>
+        <button onClick={props.logOut}>Log Out</button>
       </li>
     </ul>
   );
@@ -82,7 +80,6 @@ function NavBar(props) {
 
       {/* Login Portion */}
       {props.profile ? userLink : loginRegLink}
-      <button onClick={props.logOut}>Log Out</button>
 
       <div></div>
     </nav>

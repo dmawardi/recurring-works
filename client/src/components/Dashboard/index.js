@@ -369,6 +369,12 @@ class Dashboard extends React.Component {
     this.activateCreateMode(e);
   };
 
+  deleteItem = e => {
+    let name = e.target.getAttribute("data-name");
+    let idToDelete = e.target.getAttribute("data-id");
+    console.log("Deleting " + name + " of id: " + idToDelete);
+  };
+
   render() {
     return (
       // Dashboard container
@@ -396,6 +402,7 @@ class Dashboard extends React.Component {
                   selectDetail={this.selectDetail}
                   address1={val.address1}
                   site_name={val.site_name}
+                  delete={this.deleteItem}
                 />
               );
             })}
@@ -413,6 +420,7 @@ class Dashboard extends React.Component {
               activateCreateMode={this.activateCreateMode}
               addNewEvent={this.addNewEvent}
               currentSiteId={this.state.currentlyInFocusSiteId}
+              delete={this.deleteItem}
             />
           ) : // If update mode activated,
           this.state.update ? (

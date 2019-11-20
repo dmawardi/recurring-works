@@ -133,6 +133,7 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
     result = {};
     foundEventId = false;
   }
+
   return monthSquareFormat;
 }
 
@@ -142,6 +143,7 @@ function EquipmentDetailRow(props) {
   return (
     <tr key={props.equipment_id}>
       {/* Table header */}
+      {/* Equipment ID */}
       <th
         scope="row"
         data-name="equipment"
@@ -150,7 +152,19 @@ function EquipmentDetailRow(props) {
       >
         {props.val.equipment_id}
       </th>
-      <td>{props.val.equipment_name}</td>
+      {/* Equipment Name */}
+      <td>
+        {props.val.equipment_name}
+        {/* Delete button */}
+        <button
+          onClick={props.delete}
+          data-name="equipment"
+          data-id={props.val.equipment_id}
+        >
+          X
+        </button>
+      </td>
+      {/* Add event button */}
       <td>
         <button
           data-name="maintenance_event"
@@ -172,7 +186,6 @@ function EquipmentDetailRow(props) {
         props.yearToForecast
         // Map through resulting values
       ).map(val => {
-        console.log(val);
         // Generate a square for each month's value as a table data element
         return (
           <td>

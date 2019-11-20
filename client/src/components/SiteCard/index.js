@@ -33,6 +33,22 @@ function SiteCard(props) {
               className="fas fa-info-circle"
             ></i>
           </button>
+          {/* Button for delete */}
+          <button
+            onClick={props.delete}
+            data-name="site"
+            data-id={props.site_id}
+            type="button"
+            className="btn btn-outline-primary"
+          >
+            {/* Icon */}
+            <i
+              onClick={props.delete}
+              data-name="site"
+              data-id={props.site_id}
+              className="fas fa-skull"
+            ></i>
+          </button>
         </div>
       </div>
     </div>

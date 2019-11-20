@@ -33,6 +33,7 @@ function SiteGridView(props) {
                 yearToForecast={props.yearToForecast}
                 addNewEvent={props.addNewEvent}
                 currentSiteId={props.currentSiteId}
+                delete={props.delete}
               />
             );
           })}
