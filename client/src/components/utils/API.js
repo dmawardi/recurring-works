@@ -1,7 +1,12 @@
 import axios from "axios";
+import { finished } from "stream";
 
 const findAllSites = () => {
   return axios.get("api/sites");
+};
+
+const findEquipmentBySiteId = siteIdtoSearch => {
+  return axios.get("/siteequipment/" + siteIdtoSearch);
 };
 
 const editSite = (siteObject, idToUpdate) => {
@@ -50,5 +55,6 @@ export default {
   addSite: addSite,
   addEquipment: addEquipment,
   addEvent: addEvent,
-  editEvent: editEvent
+  editEvent: editEvent,
+  findEquipmentBySiteId: findEquipmentBySiteId
 };

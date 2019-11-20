@@ -19,7 +19,16 @@ const Equipment = {
         equipment_id: idToFind
       }
     });
+
     // .sort({ date: -1 });
+  },
+  // Find all equipment by site
+  findBySite: idToFind => {
+    return db.equipment.findAll({
+      where: {
+        site_id: idToFind
+      }
+    });
   },
   delete: idToDelete => {
     return db.equipment.destroy({

@@ -10,8 +10,8 @@ const Vendor = require("../../controller/vendor");
 // Find all
 router.get("/sites", (req, res) => {
   console.log("Hitting Sites");
-  console.log("user: ", req.user._id);
-  Site.findAll()
+  console.log("user: ", req.user.user_id);
+  Site.findByUserID(req.user.user_id)
     .then(data => {
       res.json(data);
     })
@@ -148,6 +148,20 @@ router.get("/equipment/:idToFind", (req, res) => {
   const idToFind = req.params.idToFind;
   console.log("req to find:", idToFind);
   Equipment.findByID(idToFind)
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+});
+
+// find by id
+router.get("/siteequipment/:idToFind", (req, res) => {
+  console.log("Hitting equipment by site!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  const idToFind = req.params.idToFind;
+  console.log("req to find:", idToFind);
+  Equipment.findBySite(idToFind)
     .then(data => {
       res.json(data);
     })

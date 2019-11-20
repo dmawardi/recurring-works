@@ -24,7 +24,8 @@ class Dashboard extends React.Component {
     formData: {},
     // For creating new records
     currentlyInFocusSiteId: 0,
-    currentlyInFocusEquipmentId: 0
+    currentlyInFocusEquipmentId: 0,
+    userProfile: {}
   };
 
   // ID search functions

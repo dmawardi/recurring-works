@@ -20,6 +20,14 @@ const Site = {
     });
     // .sort({ date: -1 });
   },
+  findByUserID: idToFind => {
+    return db.site.findAll({
+      where: {
+        user_id: idToFind
+      }
+    });
+    // .sort({ date: -1 });
+  },
   delete: idToDelete => {
     return db.site.destroy({
       where: {
