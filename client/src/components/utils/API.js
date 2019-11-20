@@ -13,11 +13,11 @@ const editEquipment = (equipmentObject, idToUpdate) => {
 };
 
 const editEvent = (equipmentObject, idToUpdate) => {
-  return axios.put("api/event/" + idToUpdate, equipmentObject);
+  return axios.put("api/events/" + idToUpdate, equipmentObject);
 };
 
 const addEvent = eventObject => {
-  return axios.post("api/event/", eventObject);
+  return axios.post("api/events/", eventObject);
 };
 
 const addSite = siteObject => {

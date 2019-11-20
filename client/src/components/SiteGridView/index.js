@@ -11,6 +11,7 @@ function SiteGridView(props) {
         increaseDecreaseYear={props.increaseDecreaseYear}
         currentSiteName={props.currentSiteName}
         yearToForecast={props.yearToForecast}
+        activateCreateMode={props.activateCreateMode}
       />
 
       <table className="table table-responsive table-sm table-dark">
@@ -26,6 +27,7 @@ function SiteGridView(props) {
                 selectDetail={props.selectDetail}
                 eventData={props.currentSiteEvents}
                 yearToForecast={props.yearToForecast}
+                addNewEvent={props.addNewEvent}
               />
             );
           })}

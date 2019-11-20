@@ -61,10 +61,11 @@ function GridHeader(props) {
         <br />
         {/* Legend */}
         <div className="container legend-container">
+          <h5>Legend</h5>
           <div className="row">
             {legend.map((data, i) => {
               return (
-                <div className="col-3 legend-box">
+                <div className="col-2 legend-box">
                   <StatusSquare squareState={data} />
                   <p>
                     <span className="legend-label">{legendLabels[i]}</span>
@@ -72,6 +73,14 @@ function GridHeader(props) {
                 </div>
               );
             })}
+          </div>
+          <div className="container">
+            <div className="col-2 legend-box">
+              {/* name and id used to customize form by updating state variable detail */}
+              <button data-name="equipment" onClick={props.activateCreateMode}>
+                Add New Equipment
+              </button>
+            </div>
           </div>
         </div>
       </div>

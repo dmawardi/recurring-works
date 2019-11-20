@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-// Data key values to use to extract data
+// Data key values to use to extract data from focus data to display based on type
 const siteStructure = [
   "address1",
   "address2",
@@ -24,15 +24,20 @@ const eventStructure = [
   "datetime_scheduled"
 ];
 
-// return identifier for label dependent on detail type
+// return key identifier for label dependent on detail type
 function keyBasedOffDetail(detail) {
+  // based off type within detail
   switch (detail.type) {
+    // if site
     case "site":
       return "site_name";
+    // if equipment
     case "equipment":
       return "equipment_name";
+    // if maintenance event
     case "maintenance_event":
       return "event_id";
+    // if default
     default:
       return "";
   }
@@ -40,26 +45,34 @@ function keyBasedOffDetail(detail) {
 
 // display data dependent on detail type
 function dataToDisplay(detail) {
+  // based off type within detail
   switch (detail.type) {
+    // if site
     case "site":
       return siteStructure;
+    // if equipment
     case "equipment":
       return equipmentStructure;
+    // if maintenance event
     case "maintenance_event":
       return eventStructure;
+    // if default
     default:
       return "";
   }
 }
 
+// Functional Component
 function DetailTable(props) {
   console.log("Detail table props", props);
+
   return (
+    // Column 9
     <div className="col-9 detail-table">
       <div className="card grid-header">
         <div className="card-body">
           <h5 className="card-title">
-            {/* Label of item */}
+            {/* Label of item based off focused detail key */}
             {props.focusData[keyBasedOffDetail(props.detail)]}
           </h5>
           <h6 className="card-subtitle mb-2 text-muted"></h6>
@@ -78,6 +91,7 @@ function DetailTable(props) {
         </div>
       </div>
 
+      {/* Data table */}
       <table className="table table-bordered table-dark">
         <thead>
           <tr>

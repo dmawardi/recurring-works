@@ -7,6 +7,7 @@ function TableHeader() {
       <tr>
         <th scope="col">Equipment ID</th>
         <th scope="col">Equipment Name</th>
+        <th scope="col">Add new event</th>
         <th scope="col">January</th>
         <th scope="col">February</th>
         <th scope="col">March</th>

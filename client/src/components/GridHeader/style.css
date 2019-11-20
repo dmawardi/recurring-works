@@ -6,6 +6,7 @@
 .legend-box {
   display: inline-flex;
   flex-direction: column;
+  max-width: 300px;
 }
 
 .legend-container {

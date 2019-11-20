@@ -1,7 +1,9 @@
+// Import dependencies
 import React from "react";
 import FormGroup from "../FormGroup";
 import { Route, Switch } from "react-router-dom";
 
+// Init account forms object containing form structures
 var accountForms = {
   login: [
     {
@@ -159,45 +161,43 @@ var accountForms = {
   ]
 };
 
+// Function that uses that path variable to determine the type of form to display to the user
 function pathSpecificForm(path) {
+  // Dependent on path
   switch (path) {
+    // If register
     case "register":
       return accountForms.register;
+    // If login
     case "login":
       return accountForms.login;
+    // If site
     case "site":
       return accountForms.site;
+    // If equipment
     case "equipment":
       return accountForms.equipment;
+    // If maintenance event
     case "maintenance_event":
       return accountForms.maintenance_event;
+    // If default
     default:
       break;
   }
 }
 
-// TODO: Use previous site data to update record
-// function dataToUseIfRequired(path, state) {
-//   switch (path) {
-//     case "register":
-//       return false;
-//     case "login":
-//       return false;
-//     case "site":
-//       return state.currentSite
-//     default:
-//       break;
-// }
-
+// Functional component
 function Form(props) {
   return (
     <form>
+      {/* Form labels and inputs */}
       <FormGroup
         //   Using the current React path, determine form to show
         formData={pathSpecificForm(props.path)}
         handleChange={props.handleChange}
       />
 
+      {/* Submission button */}
       <div>
         <button
           onClick={props.handleFormSubmit}
