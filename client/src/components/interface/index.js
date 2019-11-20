@@ -140,11 +140,7 @@ function Interface(props) {
           />
           {/* Sites page */}
           <Route exact path="/dashboard" component={() => <Dashboard />} />
-          <Route
-            exact
-            path="/site"
-            component={() => <Dashboard userProfile={userProfile} />}
-          />
+          <Route exact path="/site" component={() => <Dashboard />} />
         </Switch>
       </Router>
     </>

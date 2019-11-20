@@ -139,8 +139,11 @@ function generateSquareFormat(listOfMaintenanceEventDates, currentYearToCheck) {
 
 // Functional component
 function EquipmentDetailRow(props) {
+  // console.log(props);
   // Render Row
   return (
+    // props.currentSiteId
+    // If the equipment is associated with the current site
     <tr key={props.equipment_id}>
       {/* Table header */}
       <th

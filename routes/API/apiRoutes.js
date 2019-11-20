@@ -161,9 +161,49 @@ router.get("/siteequipment/:idToFind", (req, res) => {
   console.log("Hitting equipment by site!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   const idToFind = req.params.idToFind;
   console.log("req to find:", idToFind);
+  // Query Equipment table
   Equipment.findBySite(idToFind)
     .then(data => {
-      res.json(data);
+      // Init result array for equipment
+      let equipResultReturn = [];
+
+      // Iterate through equipment data to prepare for appending
+      for (let i = 0; i < data.length; i++) {
+        let currentResult = {
+          category_id: data[i].category_id,
+          custom_serial_name_1: data[i].custom_serial_name_1,
+          custom_serial_1: data[i].custom_serial_1,
+          custom_serial_name_2: data[i].custom_serial_name_2,
+          custom_serial_2: data[i].custom_serial_2,
+          equipment_description: data[i].equipment_description,
+          equipment_id: data[i].equipment_id,
+          equipment_name: data[i].equipment_name,
+          lastMaintenanceDate: data[i].lastMaintenanceDate,
+          link_to_data_folder: data[i].link_to_data_folder,
+          link_to_warranty: data[i].link_to_warranty,
+          yearlyFrequency: data[i].yearlyFrequency
+        };
+        // Push element to result
+        equipResultReturn.push(currentResult);
+      }
+
+      // Query Events
+      Event.findAll().then(data => {
+        // preprocess
+        let eventData = [];
+        for (let i = 0; i < data.length; i++) {
+          let currentData = data[i].dataValues;
+
+          eventData.push(currentData);
+        }
+
+        // Form final result
+        const finalResult = {
+          equipment: equipResultReturn,
+          events: eventData
+        };
+        res.json(finalResult);
+      });
     })
     .catch(err => {
       res.sendStatus(500);

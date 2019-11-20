@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
 
   // ID search functions
   // Find Site data in state datafrom ID
-  findSiteNameFromId = idToSearch => {
+  findSiteDataFromId = idToSearch => {
     console.log("Searching for site ID: " + idToSearch);
     console.log("Current site state: ", this.state.sites);
     // Iterate through data searching for match
@@ -244,11 +244,11 @@ class Dashboard extends React.Component {
     let idToFocus = e.target.getAttribute("data-siteid");
     console.log(e.target);
     // Use site data-id to find site id from state vriables
-    const focusSite = this.findSiteNameFromId(idToFocus);
+    const focusSite = this.findSiteDataFromId(idToFocus);
 
     // GET API call to retrieve events and equipment details
     axios
-      .get("/api/equipment")
+      .get("/api/siteequipment/" + idToFocus)
       .then(data => {
         // Store in state
         this.setState({
@@ -309,7 +309,7 @@ class Dashboard extends React.Component {
       // If site
       case "site":
         // return site data from ID
-        return this.findSiteNameFromId(id);
+        return this.findSiteDataFromId(id);
       // If equipment
       case "equipment":
         // return equipment data from ID
@@ -407,6 +407,7 @@ class Dashboard extends React.Component {
               selectDetail={this.selectDetail}
               activateCreateMode={this.activateCreateMode}
               addNewEvent={this.addNewEvent}
+              currentSiteId={this.state.currentlyInFocusSiteId}
             />
           ) : // If update mode activated,
           this.state.update ? (

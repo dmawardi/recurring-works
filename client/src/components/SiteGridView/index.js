@@ -19,7 +19,7 @@ function SiteGridView(props) {
 
         <tbody>
           {props.currentSiteEquipment.map((val, index) => {
-            // console.log(val);
+            console.log("vali is: ", val);
             return (
               <EquipmentDetailRow
                 key={index}
@@ -28,6 +28,7 @@ function SiteGridView(props) {
                 eventData={props.currentSiteEvents}
                 yearToForecast={props.yearToForecast}
                 addNewEvent={props.addNewEvent}
+                currentSiteId={props.currentSiteId}
               />
             );
           })}
