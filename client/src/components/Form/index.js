@@ -2,6 +2,7 @@
 import React from "react";
 import FormGroup from "../FormGroup";
 import { Route, Switch } from "react-router-dom";
+import "./style.css";
 
 // Init account forms object containing form structures
 var accountForms = {
@@ -194,26 +195,28 @@ function pathSpecificForm(path) {
 // Functional component
 function Form(props) {
   return (
-    <form>
-      {/* Form labels and inputs */}
-      <FormGroup
-        //   Using the current React path, determine form to show
-        formData={pathSpecificForm(props.path)}
-        handleChange={props.handleChange}
-      />
+    <div className="container form-container">
+      <form>
+        {/* Form labels and inputs */}
+        <FormGroup
+          //   Using the current React path, determine form to show
+          formData={pathSpecificForm(props.path)}
+          handleChange={props.handleChange}
+        />
 
-      {/* Submission button */}
-      <div>
-        <button
-          onClick={props.handleFormSubmit}
-          type="submit"
-          className="btn btn-primary"
-          data-id={props.idToUpdate}
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+        {/* Submission button */}
+        <div>
+          <button
+            onClick={props.handleFormSubmit}
+            type="submit"
+            className="btn btn-primary"
+            data-id={props.idToUpdate}
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 

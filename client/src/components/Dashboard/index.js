@@ -409,9 +409,17 @@ class Dashboard extends React.Component {
             // show column with form
             <div className="col-9">
               {/* Place site information  at top */}
-              {this.state.focusData.site_name}
+              <span>{this.state.focusData.site_name}</span>
+              {/* Container for edit buttons */}
+              <div className="edit-buttons">
+                <button
+                  className="close-edit-button"
+                  onClick={this.deactivateEditMode}
+                >
+                  Close Edit
+                </button>
+              </div>
               {/* Button to deactivate edit mode */}
-              <button onClick={this.deactivateEditMode}>Close Edit</button>
               {/* Form */}
               <Form
                 path={this.state.detail.type}

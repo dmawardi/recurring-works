@@ -1,0 +1,8 @@
+.close-edit-button {
+  margin-right: 70px;
+}
+
+.edit-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}

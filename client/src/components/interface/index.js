@@ -104,11 +104,13 @@ function Interface(props) {
                 <Redirect to="/" />
               ) : (
                 // else show form
-                <Form
-                  path="login"
-                  handleChange={handleFormChange}
-                  handleFormSubmit={handleLoginSubmit}
-                />
+                <div className="container">
+                  <Form
+                    path="login"
+                    handleChange={handleFormChange}
+                    handleFormSubmit={handleLoginSubmit}
+                  />
+                </div>
               )
             }
           />
@@ -123,11 +125,13 @@ function Interface(props) {
                 <Redirect to="/" />
               ) : (
                 // else show form
-                <Form
-                  path="register"
-                  handleChange={handleFormChange}
-                  handleFormSubmit={handleRegisterSubmit}
-                />
+                <div className="container">
+                  <Form
+                    path="register"
+                    handleChange={handleFormChange}
+                    handleFormSubmit={handleRegisterSubmit}
+                  />
+                </div>
               )
             }
           />
