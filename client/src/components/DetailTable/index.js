@@ -64,8 +64,6 @@ function dataToDisplay(detail) {
 
 // Functional Component
 function DetailTable(props) {
-  console.log("Detail table props", props);
-
   return (
     // Column size 9 to render detail table
     <div className="col-9 detail-table">
