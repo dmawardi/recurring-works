@@ -1,7 +1,6 @@
 // Import dependencies
 import React from "react";
 import FormGroup from "../FormGroup";
-import { Route, Switch } from "react-router-dom";
 import "./style.css";
 
 // Init account forms object containing form structures

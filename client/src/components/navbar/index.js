@@ -1,19 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 // , Route, Switch
 import userFunctions from "../utils/login";
-import { useCookies } from "react-cookie";
 
 // Functional component
 function NavBar(props) {
-  // Log out function
-  const logOut = e => {
-    e.preventDefault();
-    userFunctions.logOut().then(res => {
-      console.log("navbar: logout response:", res);
-    });
-  };
-
   // Login register links
   const loginRegLink = (
     <ul className="navbar-nav">

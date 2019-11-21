@@ -1,9 +1,7 @@
 // Import dependencies
 import React, { Component } from "react";
 import axios from "axios";
-import EquipmentDetailRow from "../EquipmentDetailRow";
 import SiteCard from "../SiteCard";
-import TableHeader from "../TableHeader";
 import DetailTable from "../DetailTable";
 import SiteGridView from "../SiteGridView";
 import "./style.css";
@@ -11,7 +9,7 @@ import Form from "../Form";
 import API from "../utils/API";
 
 // Class Dashboard
-class Dashboard extends React.Component {
+class Dashboard extends Component {
   // State variables
   state = {
     sites: [],
@@ -135,8 +133,14 @@ class Dashboard extends React.Component {
     switch (this.state.detail.type) {
       // If type is site
       case "site":
-        // Parse int values required to be integer
-        this.state.formData.postcode = parseInt(this.state.formData.postcode);
+        // Update postcode to be int
+        let temporaryData = this.state.formData;
+        temporaryData.postcode = parseInt(temporaryData.postcode);
+
+        // Set state
+        this.setState({
+          formData: temporaryData
+        });
 
         // Post API call to server to edit site using data-id value of event
         API.editSite(
@@ -169,6 +173,8 @@ class Dashboard extends React.Component {
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
         break;
+      default:
+        break;
     }
   };
 
@@ -181,8 +187,14 @@ class Dashboard extends React.Component {
     switch (this.state.detail.type) {
       // If site
       case "site":
-        // Parse postcode as int
-        this.state.formData.postcode = parseInt(this.state.formData.postcode);
+        // Update postcode to be int
+        let temporaryData = this.state.formData;
+        temporaryData.postcode = parseInt(temporaryData.postcode);
+
+        // Set state
+        this.setState({
+          formData: temporaryData
+        });
 
         // Post API call to create new site
         API.addSite(this.state.formData).then(data => {
@@ -210,6 +222,8 @@ class Dashboard extends React.Component {
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
+        break;
+      default:
         break;
     }
   };

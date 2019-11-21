@@ -1,5 +1,4 @@
 import axios from "axios";
-import { finished } from "stream";
 // API calls todb
 // Find all sites
 const findAllSites = () => {

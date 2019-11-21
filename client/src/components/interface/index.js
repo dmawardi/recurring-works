@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // import { BrowserRouter as Router, Link } from "react-router-dom";
 // , Route, Switch
 import userFunctions from "../utils/login";
-import API from "../utils/API";
 import NavBar from "../Navbar";
 import Landing from "../Landing";
 import Form from "../Form";
@@ -13,7 +12,6 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-import { set } from "date-fns";
 
 // React Hook component
 function Interface(props) {

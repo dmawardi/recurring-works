@@ -75,7 +75,6 @@ function DetailTable(props) {
             {/* Label of item based off focused detail key */}
             {props.focusData[keyBasedOffDetail(props.detail)]}
           </h5>
-          <h6 className="card-subtitle mb-2 text-muted"></h6>
           <div className="detail-button-container">
             {/* Edit button to edit record */}
             <button onClick={props.activateEditMode} data-name="edit">
