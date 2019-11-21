@@ -185,10 +185,10 @@ function EquipmentDetailRow(props) {
         ),
         props.yearToForecast
         // Map through resulting values
-      ).map(val => {
+      ).map((val, i) => {
         // Generate a square for each month's value as a table data element
         return (
-          <td>
+          <td key={i}>
             <StatusSquare squareState={val} detailClick={props.selectDetail} />
           </td>
         );

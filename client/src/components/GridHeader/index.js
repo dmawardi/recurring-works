@@ -72,7 +72,7 @@ function GridHeader(props) {
           <div className="row">
             {legend.map((data, i) => {
               return (
-                <div className="col-2 legend-box">
+                <div key={i} className="col-2 legend-box">
                   <StatusSquare squareState={data} />
                   <p>
                     <span className="legend-label">{legendLabels[i]}</span>
