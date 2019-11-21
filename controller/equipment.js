@@ -7,7 +7,6 @@ const Equipment = {
   },
   // Find all sorted by date
   findAll: () => {
-    console.log("Finding all");
     return db.equipment.findAll();
     // .sort({ date: -1 });
   },

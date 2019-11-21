@@ -31,14 +31,10 @@ class Dashboard extends React.Component {
   // ID search functions
   // Find Site data in state datafrom ID
   findSiteDataFromId = idToSearch => {
-    console.log("Searching for site ID: " + idToSearch);
-    console.log("Current site state: ", this.state.sites);
     // Iterate through data searching for match
     for (let i = 0; i < this.state.sites.length; i++) {
-      console.log("Currently checking out ID: " + this.state.sites[i].site_id);
       // If match found extract data
       if (this.state.sites[i].site_id === parseInt(idToSearch)) {
-        console.log("Found: ", this.state.sites[i].site_name);
         // Return data
         return this.state.sites[i];
       }
@@ -46,8 +42,6 @@ class Dashboard extends React.Component {
   };
   // Find equipment data in state data from ID
   findEquipmentDataFromId = idToSearch => {
-    console.log("Searching for equip ID: " + idToSearch);
-    console.log("Current equip state: ", this.state.currentSiteEquipment);
     // Iterate through data searching for match
     for (let i = 0; i < this.state.currentSiteEquipment.length; i++) {
       // If match found extract data
@@ -55,7 +49,6 @@ class Dashboard extends React.Component {
         this.state.currentSiteEquipment[i].equipment_id === parseInt(idToSearch)
       ) {
         var result = this.state.currentSiteEquipment[i];
-        console.log("Found!", result);
         // Return result
         return result;
       }
@@ -63,14 +56,11 @@ class Dashboard extends React.Component {
   };
   // Find event data in state data from ID
   findEventDataFromId = idToSearch => {
-    console.log("Searching for event ID: " + idToSearch);
-    console.log("Current event state: ", this.state.currentSiteEquipment);
     // Iterate through data searching for match\
     for (let i = 0; i < this.state.currentSiteEvents.length; i++) {
       // If match found extract data
       if (this.state.currentSiteEvents[i].event_id === parseInt(idToSearch)) {
         var result = this.state.currentSiteEvents[i];
-        console.log("Found!", result);
         // Return result
         return result;
       }
@@ -88,7 +78,6 @@ class Dashboard extends React.Component {
   activateCreateMode = e => {
     // Grab data-name attribute from click element
     let typeToDetail = e.target.getAttribute("data-name");
-    console.log("data name: " + typeToDetail);
 
     // set update to true and provide a type to ensure the form displays proper form fields
     this.setState({
@@ -115,8 +104,7 @@ class Dashboard extends React.Component {
     let value = e.target.value;
     // Extract temporary state
     let temporaryState = this.state.formData;
-    console.log("Name: " + e.target.name);
-    console.log("Value: " + e.target.value);
+
     // Add the current changes to the temporary state
     temporaryState[name] = value;
 
@@ -130,14 +118,11 @@ class Dashboard extends React.Component {
   handleFormSubmit = e => {
     // Parse the data-id attribute value as boolean as it's currently in string format
     let update = JSON.parse(e.target.getAttribute("data-id"));
-    console.log("data-id on form button: ", update);
     // If the update is true
     if (update) {
-      console.log("Update is true!");
       // handle form submit as update
       this.handleUpdateSubmit(e);
     } else {
-      console.log("Update is false!");
       // handle form submit as create
       this.handleCreateSubmit(e);
     }
@@ -146,7 +131,6 @@ class Dashboard extends React.Component {
   // Handle a form submission as an update to record
   handleUpdateSubmit = e => {
     e.preventDefault();
-    console.log(this.state.formData);
     // Depending on state variable detail's type value, perform different functions
     switch (this.state.detail.type) {
       // If type is site
@@ -160,7 +144,6 @@ class Dashboard extends React.Component {
           e.target.getAttribute("data-id")
           // Then
         ).then(data => {
-          console.log(data);
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode);
         });
@@ -172,7 +155,6 @@ class Dashboard extends React.Component {
           e.target.getAttribute("data-id")
           // Then
         ).then(data => {
-          console.log(data);
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
@@ -183,7 +165,6 @@ class Dashboard extends React.Component {
           e.target.getAttribute("data-id")
           // Then
         ).then(data => {
-          console.log(data);
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
@@ -194,8 +175,6 @@ class Dashboard extends React.Component {
   // Handle a form submission as a new record
   handleCreateSubmit = e => {
     e.preventDefault();
-    console.log("form data: ", this.state.formData);
-    console.log("Current Detail: ", this.state.detail);
     let appendedFormData = this.state.formData;
 
     // Switch based on detail type
@@ -207,7 +186,6 @@ class Dashboard extends React.Component {
 
         // Post API call to create new site
         API.addSite(this.state.formData).then(data => {
-          console.log(data);
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode);
         });
@@ -219,7 +197,6 @@ class Dashboard extends React.Component {
 
         // Post API call to create new equipment
         API.addEquipment(appendedFormData).then(data => {
-          console.log(data);
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
@@ -230,7 +207,6 @@ class Dashboard extends React.Component {
 
         // Post API call to create new site
         API.addEvent(appendedFormData).then(data => {
-          console.log(data);
           // Update the site information and render, then proceed to deactivate edit mode
           this.updateSiteInformationAndRender().then(this.deactivateEditMode());
         });
@@ -242,7 +218,6 @@ class Dashboard extends React.Component {
   updateSiteEquipmentDisplayGrid = e => {
     // Using the id of the Site card button
     let idToFocus = e.target.getAttribute("data-siteid");
-    console.log(e.target);
     // Use site data-id to find site id from state vriables
     const focusSite = this.findSiteDataFromId(idToFocus);
 
@@ -288,12 +263,10 @@ class Dashboard extends React.Component {
     // Extract event target variables as required
     let idToDetail = e.target.getAttribute("data-id");
     let typeToDetail = e.target.getAttribute("data-name");
-    console.log("data id: " + idToDetail);
-    console.log("data name: " + typeToDetail);
+
     // Create focus data based off of the details in the event.target
     const focusItem = this.retrieveDetailGiven(typeToDetail, idToDetail);
 
-    console.log("focusItem :  ", focusItem);
     // Set state updates to detail and focus data
     this.setState({
       detail: {
@@ -337,7 +310,6 @@ class Dashboard extends React.Component {
   increaseDecreaseYear = e => {
     // Grab data-name from event target
     const action = e.target.getAttribute("data-name");
-    console.log(action);
     // If action is "+"
     if (action === "+") {
       // Increment yearToForecast variable
@@ -351,12 +323,6 @@ class Dashboard extends React.Component {
         yearToForecast: this.state.yearToForecast - 1
       });
     }
-  };
-
-  // Clear the current value of detail in state
-  printState = e => {
-    //   Clear state variable detail (set to false)
-    console.log(this.state);
   };
 
   // Event handler for creating a new event
@@ -375,19 +341,17 @@ class Dashboard extends React.Component {
   deleteItem = e => {
     let name = e.target.getAttribute("data-name");
     let idToDelete = e.target.getAttribute("data-id");
-    console.log("Deleting " + name + " of id: " + idToDelete);
 
+    // Depending on item clicked, make deletion API call
     switch (name) {
       case "equipment":
         API.deleteEquipment(idToDelete).then(data => {
-          console.log(data);
           this.updateSiteInformationAndRender();
         });
         break;
       case "site":
         API.deleteSite(idToDelete).then(data => {
-          console.log(data);
-          this.updateSiteInformationAndRender().then(this.deactivateEditMode());
+          this.updateSiteInformationAndRender();
         });
         break;
     }

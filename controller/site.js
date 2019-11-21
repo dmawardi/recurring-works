@@ -7,7 +7,6 @@ const Site = {
   },
   // Find all
   findAll: () => {
-    console.log("Finding all");
     return db.site.findAll();
   },
   // Find by site id

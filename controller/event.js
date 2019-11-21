@@ -3,12 +3,10 @@ const db = require("../models");
 const Event = {
   // Create a new record using
   create: data => {
-    console.log("Creating");
     return db.maintenance_event.create(data);
   },
   // Find all sorted by date
   findAll: () => {
-    console.log("Finding all");
     return db.maintenance_event.findAll();
     // .sort({ date: -1 });
   },
@@ -22,7 +20,6 @@ const Event = {
   },
   // Find all including associated events
   findAllIncluding: () => {
-    console.log("Finding all");
     return db.maintenance_event.findAll({
       include: [{ model: db.equipment }]
     });

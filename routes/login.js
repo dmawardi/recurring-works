@@ -7,7 +7,6 @@ const passport = require("passport");
 
 // Register POST route
 router.post("/register", async function(req, res) {
-  console.log("Registering new user: ", req.body);
   // Encrypt password
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   // Insert new record into users table
@@ -20,11 +19,8 @@ router.post("/register", async function(req, res) {
   })
     .then(data => {
       //   User created
-      console.log("server response: ", data);
-      console.log("is new: ", data.isNewRecord);
-      res.json({ message: "Success! Your account has been registered." });
 
-      // Send user to login screen to login
+      res.json({ message: "Success! Your account has been registered." });
     })
     .catch(err => {
       const message =
@@ -45,9 +41,8 @@ router.post(
     failureFlash: true
   }),
   (req, res) => {
-    console.log("User authenticating");
     // I've got the user here. What can I do with it in order to render something differently?
-    console.log("req.user: ", req.user);
+    console.log("Authenticating user. req.user: ", req.user);
     // console.log("res: ", res);
     // Redirect?
     if (req.user) {

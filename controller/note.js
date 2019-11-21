@@ -7,7 +7,6 @@ const Note = {
   },
   // Find all sorted by date
   findAll: () => {
-    console.log("Finding all");
     return db.event_note.findAll();
     // .sort({ date: -1 });
   },

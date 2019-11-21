@@ -13,26 +13,30 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
+import { set } from "date-fns";
 
 // React Hook component
 function Interface(props) {
   // React Hook variables
   var [formData, setFormData] = useState({});
   var [userProfile, setUserProfile] = useState({});
-  var [siteData, setSiteData] = useState();
+  var [redirect, setRedirect] = useState(false);
+
+  // Redirection renderer. If state value is true, redirect
+  const renderRedirect = () => {
+    if (redirect) {
+      return <Redirect to="/login"></Redirect>;
+    }
+  };
 
   // log out function
   const logOut = e => {
     e.preventDefault();
-    console.log("logging out");
     userFunctions.logOut().then(res => {
-      console.log("navbar: logout response:", res);
-      console.log("Current login state:", userProfile);
       if (res.status === 200) {
-        console.log("status 200 detected!");
         setUserProfile(false);
       } else {
-        console.log("Failure detected");
+        console.error("Error encountered");
       }
     });
   };
@@ -46,19 +50,19 @@ function Interface(props) {
     // Copy current form data for appending
     let temporaryState = formData;
 
-    // Create new value within temporary state
+    // Create new value within temporary state and set
     temporaryState[name] = value;
-    // console.log("temp state: ", temporaryState);
     setFormData(temporaryState);
   };
 
   // Handle login submission
   const handleLoginSubmit = e => {
     e.preventDefault();
-    // console.log(formData);
+    // Send login request using userFunctions
     userFunctions
       .login(formData)
       .then(res => {
+        // Set user profile if successful
         setUserProfile(res.data);
       })
       .catch(err => {
@@ -66,15 +70,24 @@ function Interface(props) {
       });
   };
 
+  // Handle register submission
   const handleRegisterSubmit = e => {
     e.preventDefault();
-    console.log(formData);
-    userFunctions.register(formData).then(res => {});
+    userFunctions
+      .register(formData)
+      .then(res => {
+        setRedirect(true);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   return (
     <>
       <Router>
+        {/* Redirection used for registration completion */}
+        {renderRedirect()}
         <NavBar profile={userProfile} logOut={logOut} />
         <Switch>
           {/* Landing Page */}

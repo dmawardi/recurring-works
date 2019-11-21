@@ -10,13 +10,11 @@ function initialize(passport) {
 
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
   passport.serializeUser((user, cb) => {
-    // console.log("Serialized: " + user.user_id);
     return cb(null, user.user_id);
   });
   passport.deserializeUser((id, cb) => {
     User.findByID(id)
       .then(data => {
-        console.log("Deserialized:", data);
         return cb(null, data[0]);
       })
       .catch(err => {
@@ -32,13 +30,11 @@ const authenticateUser = async (email, password, cb) => {
   // If the results length is not greater than 0
   if (user.length == 0 || user.length == null) {
     // No user was found with the email
-    console.log("No user with that email");
     return cb(null, false, { message: "No User with that email" });
   }
 
   //   If no issues, Extract required data
   user = user[0].dataValues;
-  console.log("extracted user: ", user);
 
   try {
     // Try to decrypt and compare stored password with input password
