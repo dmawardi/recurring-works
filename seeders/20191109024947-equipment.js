@@ -135,6 +135,63 @@ module.exports = {
         category_id: 2,
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
+      },
+      {
+        equipment_name: "Sink 4b",
+        equipment_description: "Level 4 West Wing Bathroom",
+        custom_serial_name_1: "IMEI",
+        custom_serial_1: "hghKreseton",
+        custom_serial_name_2: "ASA",
+        custom_serial_2: "2jfkhosrre3",
+        yearlyFrequency: 6,
+        link_to_data_folder:
+          "https://github.com/dmawardi/recurring-works/projects/1",
+        link_to_warranty:
+          "https://github.com/dmawardi/recurring-works/projects/1",
+        enabled: true,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
+        site_id: 1,
+        category_id: 2,
+        createdAt: "2019-11-07 00:00:00",
+        updatedAt: "2019-11-07 00:00:00"
+      },
+      {
+        equipment_name: "Kitchen Sink 7",
+        equipment_description: "Level 5 Kitchen Area",
+        custom_serial_name_1: "IMEI",
+        custom_serial_1: "hghKreeton",
+        custom_serial_name_2: "ASA",
+        custom_serial_2: "2jfkhore3",
+        yearlyFrequency: 4,
+        link_to_data_folder:
+          "https://github.com/dmawardi/recurring-works/projects/1",
+        link_to_warranty:
+          "https://github.com/dmawardi/recurring-works/projects/1",
+        enabled: true,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
+        site_id: 1,
+        category_id: 2,
+        createdAt: "2019-11-07 00:00:00",
+        updatedAt: "2019-11-07 00:00:00"
+      },
+      {
+        equipment_name: "Presentation Screen",
+        equipment_description: "Located in Boardroom 4 on Level 8",
+        custom_serial_name_1: "IMEI",
+        custom_serial_1: "hghKreeton",
+        custom_serial_name_2: "ASA",
+        custom_serial_2: "2jfkhore3",
+        yearlyFrequency: 2,
+        link_to_data_folder:
+          "https://github.com/dmawardi/recurring-works/projects/1",
+        link_to_warranty:
+          "https://github.com/dmawardi/recurring-works/projects/1",
+        enabled: true,
+        lastMaintenanceDate: "2019-05-07 00:00:00",
+        site_id: 1,
+        category_id: 2,
+        createdAt: "2019-11-07 00:00:00",
+        updatedAt: "2019-11-07 00:00:00"
       }
     ]);
 

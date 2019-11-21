@@ -6,9 +6,10 @@ module.exports = {
       {
         first_name: "John",
         last_name: "Dorian",
-        email: "john@doe.com",
+        email: "d@d.com",
         username: "johndorian",
-        password: "samplepass",
+        password:
+          "$2b$10$KEMiFJlr/5tBPbYuI8bZguhatBNQpXXqf6S2UMmwhMoqXHb596MnO",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -17,7 +18,8 @@ module.exports = {
         last_name: "Zoro",
         email: "Zoro@who.com",
         username: "blackmask",
-        password: "samplepass",
+        password:
+          "$2b$10$KEMiFJlr/5tBPbYuI8bZguhatBNQpXXqf6S2UMmwhMoqXHb596MnO",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       },
@@ -26,30 +28,13 @@ module.exports = {
         last_name: "Gambino",
         email: "Gambino@doe.com",
         username: "GambinoBambino",
-        password: "samplepass",
+        password:
+          "$2b$10$KEMiFJlr/5tBPbYuI8bZguhatBNQpXXqf6S2UMmwhMoqXHb596MnO",
         createdAt: "2019-11-07 00:00:00",
         updatedAt: "2019-11-07 00:00:00"
       }
     ]);
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
   },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
-  }
+  down: (queryInterface, Sequelize) => {}
 };
