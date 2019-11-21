@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "ricochet505",
+    "password": "",
     "database": "recworksdb",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -15,10 +15,10 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "y9x1l7lza50xlesy",
+    "password": "l2e5ybcphuju5m04",
+    "database": "fh4rlr85vzzu921h",
+    "host": "icopoghru9oezxh8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "operatorsAliases": false
   }
