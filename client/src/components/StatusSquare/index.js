@@ -39,9 +39,7 @@ function StatusSquare(props) {
   let squareClass = classToUse + classToAdd;
 
   // Build display square
-  console.log(
-    "props.squareState.foundEventId: " + props.squareState.foundEventId
-  );
+
   // If it was a scheduled event, wrap it in a button that provides detail for update/creation
   if (props.squareState.foundEventId) {
     return (
