@@ -368,6 +368,8 @@ class Dashboard extends Component {
           this.updateSiteInformationAndRender();
         });
         break;
+      default:
+        break;
     }
   };
 

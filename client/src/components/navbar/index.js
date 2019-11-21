@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// , Route, Switch
-import userFunctions from "../utils/login";
 
 // Functional component
 function NavBar(props) {
