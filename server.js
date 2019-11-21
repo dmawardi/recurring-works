@@ -43,7 +43,7 @@ app.use(express.json());
 // Allows use to use DELETE methods in forms for ease of logout
 
 // Serve static content for the app from public directory
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Use imported routes for server
 app.use(routes);
